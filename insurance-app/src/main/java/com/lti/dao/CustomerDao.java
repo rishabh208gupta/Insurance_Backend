@@ -4,7 +4,7 @@ import com.lti.entity.Customer;
 
 public interface CustomerDao {
 	
-	Customer register(Customer customer);
+	int register(Customer customer);
 	
 	Customer findById(int id);
 	

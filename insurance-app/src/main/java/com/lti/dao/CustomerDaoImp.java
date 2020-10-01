@@ -16,8 +16,9 @@ public class CustomerDaoImp implements CustomerDao{
 	
 	@Override
 	@Transactional
-	public Customer register(Customer customer){
-			return entityManager.merge(customer);
+	public int register(Customer customer){
+			 entityManager.merge(customer);
+			 return customer.getCustomerId();
 
 		}
 	

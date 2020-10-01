@@ -42,6 +42,8 @@ public class ClaimController {
 	public StatusClaim displayOnClaiming(@RequestParam("policyNo") int policyNo,
 			@RequestParam("reason") String reason) {
 		try {
+			if(claimService.isClaimPending(policyNo)) 
+				throw new ClaimException("user cannot claim multiple time before approval of claim");
 			if (claimService.isPolicyPresent(policyNo)) {
 				Claim claim = claimService.insertClaimDetails(policyNo, reason);
 				StatusClaim statusClaim = new StatusClaim();
@@ -55,7 +57,7 @@ public class ClaimController {
 		} catch (ClaimException e) {
 			StatusClaim statusClaim = new StatusClaim();
 			statusClaim.setStatus(false);
-			statusClaim.setStatusMessage("policy doesnot exist wrong policy number");
+			statusClaim.setStatusMessage("policy doesnot exist wrong policy number or you have already claimed and awaiting approval");
 			return statusClaim;
 
 		}

@@ -31,7 +31,6 @@ public class ClaimService {
 	
 	public Claim insertClaimDetails(int policyNo,String reason) {
 		try {
-			//Claim isClaimPresent=claimDao.fetchById(Claim.class, id);
 			Claim claim =new Claim();
 			claim.setDateApplied(LocalDate.now());
 			claim.setStatus("pending");
@@ -48,6 +47,10 @@ public class ClaimService {
 	
 	public boolean isPolicyPresent(int policyNo) {
 		return claimDao.isPolicyPresent(policyNo);
+	}
+	
+	public boolean isClaimPending(int policyNo) {
+		return claimDao.isClaimPresent(policyNo);
 	}
 	
 	

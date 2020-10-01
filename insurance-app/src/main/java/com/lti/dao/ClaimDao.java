@@ -31,13 +31,15 @@ public class ClaimDao extends GenericDao {
 				.createQuery("select count(p.policyNo) from NewPolicy p where p.policyNo=:policyNo")
 				.setParameter("policyNo", policyNo)
 				.getSingleResult() ==1  ?true:false;
-				
-				
-
 	}
 	
-	public Claim isClaimPresent(int policyNo) {
-				return null;
+	public boolean isClaimPresent(int policyNo) {
+		String name="pending";
+		return (long)entityManager
+				.createQuery("select count(c.claimId) from Claim c join c.newPolicy n where n.policyNo=:policyNo and c.status like :status ")
+				.setParameter("policyNo", policyNo)
+				.setParameter("status", "%"+name+"%")
+				.getSingleResult() ==1  ?true:false;
 	}
 
 }

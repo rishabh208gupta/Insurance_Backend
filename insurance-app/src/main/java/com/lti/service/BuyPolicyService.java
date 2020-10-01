@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lti.dao.BuyPolicyDao;
+import com.lti.entity.NewPolicy;
+import com.lti.entity.Policy;
 import com.lti.entity.Vehicle;
 import com.lti.exception.BuyPolicyException;
 
@@ -23,5 +25,13 @@ public class BuyPolicyService {
 		else {
 			throw new BuyPolicyException("vehicle already registered");
 		}
+	}
+	
+	@Transactional
+	public NewPolicy registerPolicy(NewPolicy newPolicy) {
+		Policy policy = buyPolicyDao.getPolicy(newPolicy.getPolicy());
+		newPolicy.setPolicy(policy);
+		return buyPolicyDao.save(newPolicy);
+		
 	}
 }

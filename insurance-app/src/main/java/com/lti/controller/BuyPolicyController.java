@@ -25,6 +25,7 @@ public class BuyPolicyController {
 			VehicleRegistrationStatus vehicleRegistrationStatus = new VehicleRegistrationStatus();
 			vehicleRegistrationStatus.setStatus(true);
 			vehicleRegistrationStatus.setStatusMessage("vehicle registration successful");
+			vehicleRegistrationStatus.setVehicleId(vehicle.getVehicleId());
 			return vehicleRegistrationStatus;
 		}
 		catch(BuyPolicyException e) {

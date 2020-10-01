@@ -42,7 +42,9 @@ public class BuyPolicyController {
 	public PolicyRegistrationStatus registerPolicy(@RequestBody NewPolicy newPolicy) {
 		newPolicy = buyPolicyService.registerPolicy(newPolicy);
 		PolicyRegistrationStatus policyRegistrationStatus = new PolicyRegistrationStatus();
-		policyRegistrationStatus.setPolicyId(newPolicy.getPolicy().getPolicyId());
+		policyRegistrationStatus.setPolicyId(newPolicy.getPolicyNo());
+		policyRegistrationStatus.setStatus(true);
+		policyRegistrationStatus.setStatusMessage("policy registered successfully");
 		return policyRegistrationStatus;
 	}
 }

@@ -29,9 +29,10 @@ public class BuyPolicyService {
 	
 	@Transactional
 	public NewPolicy registerPolicy(NewPolicy newPolicy) {
-		Policy policy = buyPolicyDao.getPolicy(newPolicy.getPolicy());
-		newPolicy.setPolicy(policy);
-		return buyPolicyDao.save(newPolicy);
+		
+			int policyId = buyPolicyDao.getPolicy(newPolicy);
+			newPolicy.getPolicy().setPolicyId(policyId);
+			return buyPolicyDao.save(newPolicy);
 		
 	}
 }

@@ -3,8 +3,11 @@ package com.lti.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Component;
+
 import com.lti.entity.Customer;
 
+@Component
 public class LoginDao extends GenericDao {
 	
 	@PersistenceContext

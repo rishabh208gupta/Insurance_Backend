@@ -20,5 +20,17 @@ public class CustomerDaoImp implements CustomerDao{
 			return entityManager.merge(customer);
 
 		}
+	
+	@Override
+	public Customer findById(int id) {
+		return entityManager.find(Customer.class, id);
+		
+	}
+	
+	@Override
+	public boolean isCustomerPresent(String email) {
+		return (Long) entityManager.createQuery("select count(c.id) from Customer c where c.email = :em")
+				.setParameter("em", email).getSingleResult() == 1 ? true : false;
+	}
 		
 }

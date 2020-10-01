@@ -13,6 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="vehicle")
 public class Vehicle {
@@ -28,6 +30,8 @@ public class Vehicle {
 	private String model;
 	@Column(name="dl_no")
 	private long dlNo;
+	
+	@JsonFormat(pattern="dd-MM-yy")
 	@Column(name="purchase_date")
 	private LocalDate purchaseDate;
 	@Column(name="registration_no")

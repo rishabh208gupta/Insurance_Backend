@@ -18,7 +18,7 @@ public class BuyPolicyController {
 	@Autowired
 	private BuyPolicyService buyPolicyService;
 	
-	@PostMapping
+	@PostMapping("/register-vehicle")
 	public VehicleRegistrationStatus registerVehicle(@RequestBody Vehicle vehicle) {
 		try {
 			vehicle=buyPolicyService.registerVehicle(vehicle);

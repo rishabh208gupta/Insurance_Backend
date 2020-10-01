@@ -1,5 +1,7 @@
 package com.lti.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,6 +64,7 @@ public class BuyPolicyController {
 	@PostMapping("/make-payment")
 	public PaymentStatus makePayment(@RequestBody Payment payment) {
 		try {
+			payment.setPaymentDate(LocalDate.now());
 			payment = buyPolicyService.makePayment(payment);
 			PaymentStatus paymentStatus = new PaymentStatus();
 			paymentStatus.setStatus(true);

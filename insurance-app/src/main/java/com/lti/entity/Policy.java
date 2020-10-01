@@ -22,4 +22,6 @@ public class Policy {
 	
 	@OneToMany(mappedBy="policy")
 	private List<NewPolicy> newPolicies;
+	
+	
 }

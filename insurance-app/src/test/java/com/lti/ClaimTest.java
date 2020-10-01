@@ -21,15 +21,4 @@ public class ClaimTest {
 
 	}
 
-	@Test
-	public void fetchCustomer() {
-		
-		ClaimDao claimDao=new ClaimDao();
-		List<Customer> customer = claimDao.fetchCustomer();
-		for (Customer c : customer) {
-			System.out.println(c.getName());
-		}
-
-	}
-
 }

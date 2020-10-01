@@ -30,7 +30,6 @@ public class ClaimService {
 	
 	public Claim insertClaimDetails(int policyNo,String reason) {
 		try {
-			if(claimDao.isPolicyPresent(policyNo)) {
 			Claim claim =new Claim();
 			claim.setDateApplied(LocalDate.now());
 			claim.setStatus("pending");
@@ -38,15 +37,15 @@ public class ClaimService {
 			NewPolicy newPolicy=claimDao.fetchById(NewPolicy.class, policyNo);
 			claim.setNewPolicy(newPolicy);
 			return claimDao.save(claim);	
-			}
-			else {
-				throw new ClaimException("policy number does not exist");
-			}
 		}
 		catch(ClaimException e) {
 			throw new ClaimException("claim details not inserted");
 		}
 		
+	}
+	
+	public boolean isPolicyPresent(int policyNo) {
+		return claimDao.isPolicyPresent(policyNo);
 	}
 	
 	

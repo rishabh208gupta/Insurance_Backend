@@ -27,18 +27,23 @@ public class ClaimController {
 	}
 
 	@GetMapping("/claimstatus")
-	public StatusClaim displayOnClaiming(@RequestParam("policyNo") int policyNo,@RequestParam("reason") String reason) {
+	public StatusClaim displayOnClaiming(@RequestParam("policyNo") int policyNo,
+			@RequestParam("reason") String reason) {
 		try {
-			Claim claim = claimService.insertClaimDetails(policyNo, reason);
-			StatusClaim statusClaim = new StatusClaim();
-			statusClaim.setClaimId(claim.getClaimId());
-			statusClaim.setStatus(true);
-			statusClaim.setStatusMessage("status pending and waiting for approval");
-			return statusClaim;
+			if (claimService.isPolicyPresent(policyNo)) {
+				Claim claim = claimService.insertClaimDetails(policyNo, reason);
+				StatusClaim statusClaim = new StatusClaim();
+				statusClaim.setClaimId(claim.getClaimId());
+				statusClaim.setStatus(true);
+				statusClaim.setStatusMessage("status pending and waiting for approval");
+				return statusClaim;
+			} else {
+				throw new ClaimException("policy doesn't exist wrong policy number");
+			}
 		} catch (ClaimException e) {
 			StatusClaim statusClaim = new StatusClaim();
 			statusClaim.setStatus(false);
-			statusClaim.setStatusMessage("was not able to complete the request please try again");
+			statusClaim.setStatusMessage("policy doesnot exist wrong policy number");
 			return statusClaim;
 
 		}

@@ -40,7 +40,7 @@ public class ClaimService {
 			return claimDao.save(claim);	
 			}
 			else {
-				throw new ClaimException("claim details not inserted");
+				throw new ClaimException("policy number does not exist");
 			}
 		}
 		catch(ClaimException e) {

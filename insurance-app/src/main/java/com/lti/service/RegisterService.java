@@ -18,7 +18,6 @@ public class RegisterService {
 			int id = customerDao.register(customer);
 			//emailService.sendMailForNewRegistration(customer);
 			return id;
-//			then code to send an email to the customer will be here !!
 		} else {
 			throw new RegisterServiceException("Customer Already Registered");
 		}

@@ -21,7 +21,6 @@ public class RegisterController {
 	private RegisterService registerService;
 	
 	@PostMapping(path = "/register")
-	// similar to @RequestMapping(path = "/register", method=RequestMethod.POST)
 	public Status registerCustomer(@RequestBody Registration registration) {
 		Customer customer = new Customer(); 
 		BeanUtils.copyProperties(registration, customer);
@@ -29,7 +28,6 @@ public class RegisterController {
 			int id = registerService.registeration(customer);
 
 			Status status = new Status();
-		//	status.setCustomerId(id);
 			status.setStatus(true);
 			status.setStatusMessage("Registration Successful");
 			return status;

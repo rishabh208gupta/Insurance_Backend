@@ -35,5 +35,10 @@ public class ClaimDao extends GenericDao {
 				
 
 	}
+	
+	public Claim isClaimPresent(int policyNo) {
+		return null;
+				
+	}
 
 }

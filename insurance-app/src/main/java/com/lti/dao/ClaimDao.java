@@ -13,15 +13,25 @@ import com.lti.entity.Customer;
 import com.lti.exception.ClaimException;
 
 @Component
-public class ClaimDao extends GenericDao{
-	
+public class ClaimDao extends GenericDao {
+
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	public List<Object[]> fetchClaimDetails(int customerId) {
-		return   entityManager.createQuery("select p.policyId,p.policyType,p.policyDuration,c.customerId,"
+		return entityManager.createQuery("select p.policyId,p.policyType,p.policyDuration,c.customerId,"
 				+ "c.name from Customer c join c.vehicles v join v.newPolicy n join n.policy p"
 				+ " where c.customerId=:customerId").setParameter("customerId", customerId).getResultList();
-		}
+	}
+
+	public boolean isPolicyPresent(int policyNo) {
+		return (long)entityManager
+				.createQuery("select count(p.policyNo) from NewPolicy p where p.policyNo=:policyNo")
+				.setParameter("policyNo", policyNo)
+				.getSingleResult() ==1  ?true:false;
+				
+				
+
+	}
 
 }

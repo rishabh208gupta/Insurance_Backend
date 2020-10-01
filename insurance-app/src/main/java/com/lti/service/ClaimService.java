@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,7 @@ public class ClaimService {
 	
 	public Claim insertClaimDetails(int policyNo,String reason) {
 		try {
+			if(claimDao.isPolicyPresent(policyNo)) {
 			Claim claim =new Claim();
 			claim.setDateApplied(LocalDate.now());
 			claim.setStatus("pending");
@@ -36,6 +38,10 @@ public class ClaimService {
 			NewPolicy newPolicy=claimDao.fetchById(NewPolicy.class, policyNo);
 			claim.setNewPolicy(newPolicy);
 			return claimDao.save(claim);	
+			}
+			else {
+				throw new ClaimException("claim details not inserted");
+			}
 		}
 		catch(ClaimException e) {
 			throw new ClaimException("claim details not inserted");

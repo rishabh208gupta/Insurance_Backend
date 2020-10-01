@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.dto.PolicyRegistrationStatus;
 import com.lti.dto.VehicleRegistrationStatus;
+import com.lti.entity.NewPolicy;
 import com.lti.entity.Vehicle;
 import com.lti.exception.BuyPolicyException;
 import com.lti.service.BuyPolicyService;
@@ -34,5 +36,13 @@ public class BuyPolicyController {
 			vehicleRegistrationStatus.setStatusMessage(e.getMessage());
 			return vehicleRegistrationStatus;
 		}
+	}
+	
+	@PostMapping("/register-policy")
+	public PolicyRegistrationStatus registerPolicy(@RequestBody NewPolicy newPolicy) {
+		newPolicy = buyPolicyService.registerPolicy(newPolicy);
+		PolicyRegistrationStatus policyRegistrationStatus = new PolicyRegistrationStatus();
+		policyRegistrationStatus.setPolicyId(newPolicy.getPolicy().getPolicyId());
+		return policyRegistrationStatus;
 	}
 }

@@ -16,4 +16,6 @@ public class BuyPolicyDao extends GenericDao{
 		return (Integer)entityManager.createQuery("select p.policyId from Policy p where p.policyType=:x and p.policyDuration=:y").setParameter("x", newPolicy.getPolicy().getPolicyType()).setParameter("y", newPolicy.getPolicy().getPolicyDuration()).getSingleResult();
 	}
 	
+	
+	
 }

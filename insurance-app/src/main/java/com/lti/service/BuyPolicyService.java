@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.lti.dao.BuyPolicyDao;
 import com.lti.entity.NewPolicy;
-import com.lti.entity.Policy;
+import com.lti.entity.Payment;
 import com.lti.entity.Vehicle;
 import com.lti.exception.BuyPolicyException;
 
@@ -34,5 +34,10 @@ public class BuyPolicyService {
 			newPolicy.getPolicy().setPolicyId(policyId);
 			return buyPolicyDao.save(newPolicy);
 		
+	}
+	
+	@Transactional
+	public Payment makePayment(Payment payment) {
+		return buyPolicyDao.save(payment);
 	}
 }

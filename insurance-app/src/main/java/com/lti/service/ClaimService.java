@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lti.dao.ClaimDao;
 import com.lti.entity.Claim;
 import com.lti.entity.NewPolicy;
+import com.lti.entity.Policy;
 import com.lti.exception.ClaimException;
 
 @Service
@@ -19,7 +20,7 @@ public class ClaimService {
 	@Autowired
 	private ClaimDao claimDao;
 	
-	public List<Object[]> displayOnClaimPage(int customerId){
+	public List<Policy> displayOnClaimPage(int customerId){
 		try {
 		return claimDao.fetchClaimDetails(customerId);
 		}

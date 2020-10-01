@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.dto.ClaimCustomerDetails;
 import com.lti.dto.StatusClaim;
 import com.lti.entity.Claim;
+import com.lti.entity.Policy;
 import com.lti.exception.ClaimException;
 import com.lti.service.ClaimService;
 
@@ -21,8 +23,18 @@ public class ClaimController {
 	private ClaimService claimService;
 
 	@GetMapping("/claimpage")
-	public List<Object[]> displayOnClaimPage(@RequestParam("customerId") int id) {
-		return claimService.displayOnClaimPage(id);
+	public ClaimCustomerDetails displayOnClaimPage(@RequestParam("customerId") int id) {
+		try {
+		ClaimCustomerDetails claimCustDetails= new ClaimCustomerDetails();
+		List<Policy>listPolicy=claimService.displayOnClaimPage(id);
+		claimCustDetails.setPolicyId(listPolicy.get(0).getPolicyId());
+		claimCustDetails.setPolicyType(listPolicy.get(0).getPolicyType());
+		claimCustDetails.setPolicyDuration(listPolicy.get(0).getPolicyDuration());
+		return claimCustDetails;
+		}
+		catch(ClaimException e) {
+			throw new ClaimException("some error occured while fetching details ");
+		}
 
 	}
 

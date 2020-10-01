@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.Login;
 import com.lti.dto.LoginStatus;
+import com.lti.dto.Status;
 import com.lti.entity.Customer;
 import com.lti.exception.LoginServiceException;
 import com.lti.service.LoginService;
@@ -25,7 +26,9 @@ public class LoginController {
 		try {
 			Customer customer=loginService.login(login.getEmail(), login.getPassword());
 			LoginStatus loginStatus = new LoginStatus();
-			
+			loginStatus.setStatus(true);
+			loginStatus.setStatusMessage("Login Sucessful");
+			loginStatus.setId(customer.getCustomerId());
 			return loginStatus;
 			
 		}

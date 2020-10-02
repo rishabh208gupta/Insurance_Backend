@@ -31,7 +31,7 @@ public class Vehicle {
 	@Column(name="dl_no")
 	private long dlNo;
 	
-	@JsonFormat(pattern="dd-MM-yy")
+	
 	@Column(name="purchase_date")
 	private LocalDate purchaseDate;
 	@Column(name="registration_no")

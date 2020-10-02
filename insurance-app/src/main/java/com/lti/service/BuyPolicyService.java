@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lti.dao.BuyPolicyDao;
+import com.lti.entity.Customer;
 import com.lti.entity.NewPolicy;
 import com.lti.entity.Payment;
 import com.lti.entity.Vehicle;
@@ -20,6 +21,9 @@ public class BuyPolicyService {
 	@Transactional
 	public Vehicle registerVehicle(Vehicle vehicle) {
 		if(!buyPolicyDao.isVehiclePresent(vehicle.getChasisNo())) {
+			Customer customer = buyPolicyDao.fetchById(Customer.class, vehicle.getCustomer().getCustomerId());
+			System.out.println(vehicle.getCustomer().getCustomerId());
+			vehicle.setCustomer(customer);
 			return buyPolicyDao.save(vehicle);
 		}
 		else {

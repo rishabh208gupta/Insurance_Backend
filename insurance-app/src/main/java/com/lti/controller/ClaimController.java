@@ -29,8 +29,11 @@ public class ClaimController {
 		try {
 		List<NewPolicy>listPolicy=claimService.displayOnClaimPage(id);
 		List<ClaimCustomerDetails> listclaimCustDetails= new ArrayList<>();
+		if(listPolicy.size()==0)
+			throw new ClaimException("no policy present");
 			for(int i=0;i<listPolicy.size();i++) {
 			ClaimCustomerDetails claimCustDetails=new ClaimCustomerDetails();
+			claimCustDetails.setStatus(true);
 			claimCustDetails.setPolicyNo(listPolicy.get(i).getPolicyNo());
 			claimCustDetails.setPolicyId(listPolicy.get(i).getPolicy().getPolicyId());
 			claimCustDetails.setPolicyType(listPolicy.get(i).getPolicy().getPolicyType());
@@ -44,7 +47,11 @@ public class ClaimController {
 		return listclaimCustDetails;
 		}
 		catch(ClaimException e) {
-			throw new ClaimException("some error occured while fetching details ");
+			List<ClaimCustomerDetails> listclaimCustDetails= new ArrayList<>();
+			ClaimCustomerDetails claimCustDetails=new ClaimCustomerDetails();
+			claimCustDetails.setStatus(false);
+			listclaimCustDetails.add(claimCustDetails);
+			return  listclaimCustDetails;
 		}
 
 	}

@@ -4,6 +4,7 @@ import com.lti.entity.Policy;
 import com.lti.entity.Vehicle;
 
 public class ClaimCustomerDetails {
+	private boolean status;
 	private int policyNo;
 	private int policyId;
 	private String policyType;
@@ -12,6 +13,12 @@ public class ClaimCustomerDetails {
 	private String model;
 	private int registrationNo;
 	
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 	public String getPolicyType() {
 		return policyType;
 	}

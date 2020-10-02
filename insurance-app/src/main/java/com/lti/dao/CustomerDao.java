@@ -8,6 +8,8 @@ public interface CustomerDao {
 	
 	Customer findById(int id);
 	
+	int findByEmailAndPassword(String email, String password);
+	
 	boolean isCustomerPresent(String email);
 
 }

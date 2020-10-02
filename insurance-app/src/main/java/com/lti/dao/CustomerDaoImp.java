@@ -29,13 +29,6 @@ public class CustomerDaoImp implements CustomerDao{
 	}
 	
 	@Override
-	public int findByEmailAndPassword(String email, String password) {
-		return (Integer) entityManager
-				.createQuery("select c.id from Customer c where c.email = :em and c.password = :pw")
-				.setParameter("em", email).setParameter("pw", password).getSingleResult();
-	}
-	
-	@Override
 	public boolean isCustomerPresent(String email) {
 		return (Long) entityManager.createQuery("select count(c.id) from Customer c where c.email = :em")
 				.setParameter("em", email).getSingleResult() == 1 ? true : false;

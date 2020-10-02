@@ -16,11 +16,13 @@ public class RegisterService {
 	@Autowired
 	private EmailService emailService;
 	
-	public int registeration(Customer customer) {
+	public String registeration(Customer customer) {
 		if (!customerDao.isCustomerPresent(customer.getEmail())) {
 			int id = customerDao.register(customer);
-			emailService.sendMailForNewRegistration(customer);
-			return id;
+			String info = "Congratulations for registration. Your registration id is " + id;
+			String email = customer.getEmail();
+			emailService.Mailer(email, info);
+			return "Customer registration sucessfull";
 		} else {
 			throw new RegisterServiceException("Customer Already Registered");
 		}

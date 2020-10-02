@@ -5,7 +5,6 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
-import com.lti.entity.Customer;
 
 @Service
 public class EmailService {
@@ -13,12 +12,14 @@ public class EmailService {
 	@Autowired
 	private MailSender mailSender;
 
-	public void sendMailForNewRegistration(Customer customer) {
+	public void Mailer(String email, String info) {
+
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("do-not-reply@myproject.com");
-		message.setTo(customer.getEmail());
+		message.setFrom("Insurance@myproject.com");
+		message.setTo(email);
 		message.setSubject("Thank u for registering with us..");
-		message.setText("Greetings" + customer.getName());
+		message.setText("Greetings, " + info);
 		mailSender.send(message);
+		System.out.println("Mail sent");
 	}
 }

@@ -16,16 +16,16 @@ import com.lti.service.RegisterService;
 @RestController
 @CrossOrigin
 public class RegisterController {
-	
+
 	@Autowired
 	private RegisterService registerService;
-	
+
 	@PostMapping(path = "/register")
 	public Status registerCustomer(@RequestBody Registration registration) {
-		Customer customer = new Customer(); 
+		Customer customer = new Customer();
 		BeanUtils.copyProperties(registration, customer);
 		try {
-			int id = registerService.registeration(customer);
+			registerService.registeration(customer);
 
 			Status status = new Status();
 			status.setStatus(true);

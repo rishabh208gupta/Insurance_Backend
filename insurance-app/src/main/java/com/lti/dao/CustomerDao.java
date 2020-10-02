@@ -4,10 +4,14 @@ import com.lti.entity.Customer;
 
 public interface CustomerDao {
 	
-	int register(Customer customer);
+	Customer register(Customer customer);
 	
 	Customer findById(int id);
 	
+	long findVisitorByEmail(String email);
+	
 	boolean isCustomerPresent(String email);
+
+	
 
 }

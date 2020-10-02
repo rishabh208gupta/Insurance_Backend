@@ -18,8 +18,10 @@ public class RegisterService {
 	
 	public String registeration(Customer customer) {
 		if (!customerDao.isCustomerPresent(customer.getEmail())) {
-			int id = customerDao.register(customer);
-			String info = "Congratulations for registration. Your registration id is " + id;
+			customer = customerDao.register(customer);
+			long referenceNo = customerDao.findVisitorByEmail(customer.getEmail());
+			System.out.println(referenceNo);
+			String info = "Congratulations for registration. Your registration id is " + referenceNo;
 			String email = customer.getEmail();
 			emailService.Mailer(email, info);
 			return "Customer registration sucessfull";

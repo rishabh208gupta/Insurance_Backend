@@ -17,10 +17,10 @@ import javax.persistence.Table;
 public class Customer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "myseq")
-	@SequenceGenerator(name="myseq", sequenceName ="user_seq" , allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "user_seq")
+	@SequenceGenerator(name = "user_seq" , initialValue = 1001 , allocationSize = 1)
 	@Column(name="customer_id")
-	private int customerId;
+	private long customerId;
 	private String name;
 	@Column(name="phone_no")
 	private long phoneNo;
@@ -33,7 +33,7 @@ public class Customer {
 	@OneToMany(mappedBy="customer")
 	private List<Vehicle> vehicles;
 	
-	public int getCustomerId() {
+	public long getCustomerId() {
 		return customerId;
 	}
 	public void setCustomerId(int id) {

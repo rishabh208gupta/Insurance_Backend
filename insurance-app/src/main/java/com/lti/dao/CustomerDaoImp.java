@@ -1,5 +1,7 @@
 package com.lti.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,9 +18,9 @@ public class CustomerDaoImp implements CustomerDao{
 	
 	@Override
 	@Transactional
-	public int register(Customer customer){
+	public Customer register(Customer customer){
 			 entityManager.merge(customer);
-			 return customer.getCustomerId();
+			 return customer;
 
 		}
 	
@@ -27,6 +29,15 @@ public class CustomerDaoImp implements CustomerDao{
 		return entityManager.find(Customer.class, id);
 		
 	}
+	
+	@Override
+    public long findVisitorByEmail(String email) {
+        List<Long> registrationRefNos=(List<Long>) 
+        entityManager.createQuery("select e.customerId from Customer e where e.email=:em order by e.customerId")
+        .setParameter("em", email).getResultList();
+        return registrationRefNos.get(registrationRefNos.size() - 1);
+    }
+
 	
 	@Override
 	public boolean isCustomerPresent(String email) {

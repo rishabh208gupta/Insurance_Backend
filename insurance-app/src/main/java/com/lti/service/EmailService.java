@@ -15,9 +15,9 @@ public class EmailService {
 	public void Mailer(String email, String info) {
 
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("Insurance@myproject.com");
+		message.setFrom("bigladproject@outlook.com");
 		message.setTo(email);
-		message.setSubject("Thank u for registering with us..");
+		message.setSubject("Do-Not-Reply to this mail");
 		message.setText("Greetings, " + info);
 		mailSender.send(message);
 		System.out.println("Mail sent");

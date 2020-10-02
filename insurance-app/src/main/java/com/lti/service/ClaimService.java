@@ -20,7 +20,7 @@ public class ClaimService {
 	@Autowired
 	private ClaimDao claimDao;
 	
-	public List<Policy> displayOnClaimPage(int customerId){
+	public List<NewPolicy> displayOnClaimPage(int customerId){
 		try {
 		return claimDao.fetchClaimDetails(customerId);
 		}

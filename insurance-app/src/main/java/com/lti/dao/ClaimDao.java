@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.lti.entity.Claim;
 import com.lti.entity.Customer;
+import com.lti.entity.NewPolicy;
 import com.lti.entity.Policy;
 import com.lti.exception.ClaimException;
 
@@ -20,9 +21,9 @@ public class ClaimDao extends GenericDao {
 	private EntityManager entityManager;
 
 	
-	public List<Policy> fetchClaimDetails(int customerId) {
+	public List<NewPolicy> fetchClaimDetails(int customerId) {
 		return entityManager
-				.createQuery("select p from Customer c join c.vehicles v join v.newPolicy n join n.policy p"
+				.createQuery("select n from Customer c join c.vehicles v join v.newPolicy n join n.policy p"
 				+ " where c.customerId=:customerId").setParameter("customerId", customerId).getResultList();
 	}
 

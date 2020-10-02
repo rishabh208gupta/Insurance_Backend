@@ -1,5 +1,6 @@
 package com.lti.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lti.dto.ClaimCustomerDetails;
 import com.lti.dto.StatusClaim;
 import com.lti.entity.Claim;
+import com.lti.entity.NewPolicy;
 import com.lti.entity.Policy;
 import com.lti.exception.ClaimException;
 import com.lti.service.ClaimService;
@@ -23,14 +25,23 @@ public class ClaimController {
 	private ClaimService claimService;
 
 	@GetMapping("/claimpage")
-	public ClaimCustomerDetails displayOnClaimPage(@RequestParam("customerId") int id) {
+	public List<ClaimCustomerDetails> displayOnClaimPage(@RequestParam("customerId") int id) {
 		try {
-		ClaimCustomerDetails claimCustDetails= new ClaimCustomerDetails();
-		List<Policy>listPolicy=claimService.displayOnClaimPage(id);
-		claimCustDetails.setPolicyId(listPolicy.get(0).getPolicyId());
-		claimCustDetails.setPolicyType(listPolicy.get(0).getPolicyType());
-		claimCustDetails.setPolicyDuration(listPolicy.get(0).getPolicyDuration());
-		return claimCustDetails;
+		List<NewPolicy>listPolicy=claimService.displayOnClaimPage(id);
+		List<ClaimCustomerDetails> listclaimCustDetails= new ArrayList<>();
+			for(int i=0;i<listPolicy.size();i++) {
+			ClaimCustomerDetails claimCustDetails=new ClaimCustomerDetails();
+			claimCustDetails.setPolicyNo(listPolicy.get(i).getPolicyNo());
+			claimCustDetails.setPolicyId(listPolicy.get(i).getPolicy().getPolicyId());
+			claimCustDetails.setPolicyType(listPolicy.get(i).getPolicy().getPolicyType());
+			claimCustDetails.setVehicleType(listPolicy.get(i).getVehicle().getVehicleType());
+			claimCustDetails.setManufacturer(listPolicy.get(i).getVehicle().getManufacturer());
+			claimCustDetails.setModel(listPolicy.get(i).getVehicle().getModel());
+			claimCustDetails.setRegistrationNo(listPolicy.get(i).getVehicle().getRegistrationNo());
+			listclaimCustDetails.add(claimCustDetails);
+			}
+		
+		return listclaimCustDetails;
 		}
 		catch(ClaimException e) {
 			throw new ClaimException("some error occured while fetching details ");

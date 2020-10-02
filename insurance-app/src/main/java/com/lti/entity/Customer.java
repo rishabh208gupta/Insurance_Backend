@@ -20,7 +20,7 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "user_seq")
 	@SequenceGenerator(name = "user_seq" , initialValue = 1001 , allocationSize = 1)
 	@Column(name="customer_id")
-	private long customerId;
+	private int customerId;
 	private String name;
 	@Column(name="phone_no")
 	private long phoneNo;
@@ -33,7 +33,7 @@ public class Customer {
 	@OneToMany(mappedBy="customer")
 	private List<Vehicle> vehicles;
 	
-	public long getCustomerId() {
+	public int getCustomerId() {
 		return customerId;
 	}
 	public void setCustomerId(int id) {

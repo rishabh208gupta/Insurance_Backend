@@ -2,13 +2,13 @@ package com.lti.dto;
 
 public class LoginStatus extends Status {
 	
-	private long customerId;
+	private int customerId;
 
-	public long getCustomerId() {
+	public int getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(long l) {
+	public void setCustomerId(int l) {
 		this.customerId = l;
 	}
 

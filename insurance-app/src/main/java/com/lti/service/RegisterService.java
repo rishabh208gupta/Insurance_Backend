@@ -19,11 +19,11 @@ public class RegisterService {
 	public String registeration(Customer customer) {
 		if (!customerDao.isCustomerPresent(customer.getEmail())) {
 			customer = customerDao.register(customer);
-			long referenceNo = customerDao.findVisitorByEmail(customer.getEmail());
-			System.out.println(referenceNo);
-			String info = "Congratulations for registration. Your registration id is " + referenceNo;
+		//	int referenceNo = customerDao.findVisitorByEmail(customer.getEmail());
+		//	System.out.println(referenceNo);
+		//	String info = "Congratulations for registration. Your registration id is " + referenceNo;
 			String email = customer.getEmail();
-			emailService.Mailer(email, info);
+		//	emailService.Mailer(email, info);
 			return "Customer registration sucessfull";
 		} else {
 			throw new RegisterServiceException("Customer Already Registered");

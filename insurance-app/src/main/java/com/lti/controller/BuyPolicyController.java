@@ -47,7 +47,7 @@ public class BuyPolicyController {
 		try {
 			newPolicy = buyPolicyService.registerPolicy(newPolicy);
 			PolicyRegistrationStatus policyRegistrationStatus = new PolicyRegistrationStatus();
-			policyRegistrationStatus.setPolicyId(newPolicy.getPolicyNo());
+			policyRegistrationStatus.setPolicyNo(newPolicy.getPolicyNo());
 			policyRegistrationStatus.setStatus(true);
 			policyRegistrationStatus.setStatusMessage("policy registered successfully");
 			return policyRegistrationStatus;

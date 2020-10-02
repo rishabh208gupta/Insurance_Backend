@@ -9,6 +9,7 @@ import com.lti.dao.BuyPolicyDao;
 import com.lti.entity.Customer;
 import com.lti.entity.NewPolicy;
 import com.lti.entity.Payment;
+import com.lti.entity.Policy;
 import com.lti.entity.Vehicle;
 import com.lti.exception.BuyPolicyException;
 
@@ -34,8 +35,10 @@ public class BuyPolicyService {
 	@Transactional
 	public NewPolicy registerPolicy(NewPolicy newPolicy) {
 		
-			int policyId = buyPolicyDao.getPolicy(newPolicy);
-			newPolicy.getPolicy().setPolicyId(policyId);
+			Policy policy = buyPolicyDao.getPolicy(newPolicy);
+			Vehicle vehicle = buyPolicyDao.fetchById(Vehicle.class, newPolicy.getVehicle().getVehicleId());
+			newPolicy.setPolicy(policy);
+			newPolicy.setVehicle(vehicle);
 			return buyPolicyDao.save(newPolicy);
 		
 	}

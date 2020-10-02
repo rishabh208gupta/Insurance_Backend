@@ -2,14 +2,14 @@ package com.lti.dto;
 
 public class PolicyRegistrationStatus extends Status{
 
-	private int policyId;
+	private int policyNo;
 
-	public int getPolicyId() {
-		return policyId;
+	public int getPolicyNo() {
+		return policyNo;
 	}
 
-	public void setPolicyId(int policyNo) {
-		this.policyId = policyNo;
+	public void setPolicyNo(int policyNo) {
+		this.policyNo = policyNo;
 	}
 	
 	

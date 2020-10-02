@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.dto.Bill;
 import com.lti.dto.PaymentStatus;
 import com.lti.dto.PolicyRegistrationStatus;
 import com.lti.dto.VehicleRegistrationStatus;
@@ -58,6 +60,28 @@ public class BuyPolicyController {
 			policyRegistrationStatus.setStatusMessage(e.getMessage());
 			return policyRegistrationStatus;
 		}
+		
+	}
+	
+	@PostMapping("/bill-details")
+	public Bill getBillDetails(@RequestParam("policyNo") int policyNo) {
+		try {
+			NewPolicy newPolicy = buyPolicyService.getBillDetails(policyNo);
+			Bill bill = new Bill();
+			bill.setCustomerName(newPolicy.getVehicle().getCustomer().getName());
+			bill.setPhoneNo(newPolicy.getVehicle().getCustomer().getPhoneNo());
+			bill.setVehicleType(newPolicy.getVehicle().getVehicleType());
+			bill.setManufacturer(newPolicy.getVehicle().getManufacturer());
+			bill.setChasisNo(newPolicy.getVehicle().getChasisNo());
+			bill.setPolicyType(newPolicy.getPolicy().getPolicyType());
+			bill.setPolicyDuration(newPolicy.getPolicy().getPolicyDuration());
+			bill.setAmount(1000);
+			return bill;
+		}
+		catch(Exception e) {
+			return null;
+		}
+		
 		
 	}
 	

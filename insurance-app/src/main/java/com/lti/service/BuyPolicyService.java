@@ -43,6 +43,10 @@ public class BuyPolicyService {
 		
 	}
 	
+	public NewPolicy getBillDetails(int policyNo) {
+		return buyPolicyDao.fetchById(NewPolicy.class, policyNo);
+	}
+	
 	@Transactional
 	public Payment makePayment(Payment payment) {
 		return buyPolicyDao.save(payment);

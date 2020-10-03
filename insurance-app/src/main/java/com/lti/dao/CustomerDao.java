@@ -8,7 +8,7 @@ public interface CustomerDao {
 	
 	Customer findById(int id);
 	
-	long findVisitorByEmail(String email);
+	int findVisitorByEmail(String email);
 	
 	boolean isCustomerPresent(String email);
 

@@ -31,11 +31,11 @@ public class CustomerDaoImp implements CustomerDao{
 	}
 	
 	@Override
-    public long findVisitorByEmail(String email) {
-        List<Long> registrationRefNos=(List<Long>) 
+    public int findVisitorByEmail(String email) {
+        List<Integer> registrationRefNos=(List<Integer>) 
         entityManager.createQuery("select e.customerId from Customer e where e.email=:em order by e.customerId")
         .setParameter("em", email).getResultList();
-        return registrationRefNos.get(registrationRefNos.size() - 1);
+        return registrationRefNos.get(registrationRefNos.size() -1);
     }
 
 	

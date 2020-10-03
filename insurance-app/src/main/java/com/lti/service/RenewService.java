@@ -9,26 +9,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.lti.dao.RenewDao;
+import com.lti.entity.NewPolicy;
+import com.lti.entity.Policy;
+import com.lti.exception.RenewException;
 
 @Component
 @Transactional
 public class RenewService {
 	@Autowired
 	private RenewDao renewDao;
-	
+
 	public boolean isPolicyExisting(int policyNo) {
 		return renewDao.isPolicyExisting(policyNo);
 	}
-	
-	public boolean hasPolicyExpired(int policyNo,int policyDuration) {
-		LocalDate dateOfPayment=renewDao.paymentDate(policyNo);
-		Period date= Period.between(dateOfPayment, LocalDate.now());
-		if(date.getYears()>policyDuration) {
+
+	public boolean hasPolicyExpired(int policyNo, int policyDuration) {
+		LocalDate dateOfPayment = renewDao.paymentDate(policyNo);
+		Period date = Period.between(dateOfPayment, LocalDate.now());
+		if (date.getYears() > policyDuration) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
-		
+
+	}
+
+	public NewPolicy renewPolicy(int policyNo, int newPolicyDuration) {
+		NewPolicy oldPolicyDetails = renewDao.fetchById(NewPolicy.class, policyNo);
+		Policy oldPolicy = oldPolicyDetails.getPolicy();
+		String oldPolicyType = oldPolicy.getPolicyType();
+		Policy newPolicy = renewDao.fetchPolicy(oldPolicyType, newPolicyDuration);
+		oldPolicyDetails.setPolicy(newPolicy);
+		return renewDao.save(oldPolicyDetails);
 	}
 
 }

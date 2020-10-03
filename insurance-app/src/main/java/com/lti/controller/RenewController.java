@@ -65,6 +65,8 @@ public class RenewController {
 	@PostMapping("/make-payment-renew")
 	public PaymentStatus makePayment(@RequestBody PaymentRenew renewPayment) {
 		try {
+			if(renewPayment.isStatusConfirmation()==false)
+				throw new RenewException("payment unsuccessful");
 			Payment successPayment=renewService.makePayment(renewPayment);
 			NewPolicy renewedPolicy = renewService.renewPolicy(renewPayment.getNewPolicy().getPolicyNo(),
 					renewPayment.getPolicyDuration());

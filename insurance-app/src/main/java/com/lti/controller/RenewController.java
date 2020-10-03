@@ -34,7 +34,7 @@ public class RenewController {
 			PolicyRegistrationStatus policyRegistrationStatus = new PolicyRegistrationStatus();
 			policyRegistrationStatus.setPolicyNo(renewedPolicy.getPolicyNo());
 			policyRegistrationStatus.setStatus(true);
-			policyRegistrationStatus.setStatusMessage("policy registered successfully");
+			policyRegistrationStatus.setStatusMessage("proceed for payment");
 			return policyRegistrationStatus;
 
 		} catch (RenewException e) {

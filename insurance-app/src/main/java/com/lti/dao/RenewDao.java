@@ -25,7 +25,7 @@ public class RenewDao extends GenericDao {
 
 	public LocalDate paymentDate(int policyNo) {
 		return (LocalDate) entityManager
-				.createQuery("select p.paymentDate from Payment p join p.newPolicy n where n.policyNo=:policyNo")
+				.createQuery("select max(p.paymentDate) from Payment p join p.newPolicy n where n.policyNo=:policyNo")
 				.setParameter("policyNo", policyNo).getSingleResult();
 	}
 

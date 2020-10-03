@@ -9,17 +9,17 @@ import com.lti.exception.RegisterServiceException;
 
 @Service
 public class RegisterService {
-	
+
 	@Autowired
 	private CustomerDao customerDao;
-	
+
 	@Autowired
 	private EmailService emailService;
-	
+
 	public String registeration(Customer customer) {
 		if (!customerDao.isCustomerPresent(customer.getEmail())) {
 			customer = customerDao.register(customer);
-			int referenceNo = customerDao.findVisitorByEmail(customer.getEmail());
+			Customer referenceNo = customerDao.findByEmail(customer.getEmail());
 			System.out.println(referenceNo);
 			String info = "Congratulations for registration. Your registration id is " + referenceNo;
 			String email = customer.getEmail();
@@ -29,5 +29,5 @@ public class RegisterService {
 			throw new RegisterServiceException("Customer Already Registered");
 		}
 	}
-	
+
 }

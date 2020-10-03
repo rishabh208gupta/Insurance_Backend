@@ -1,6 +1,6 @@
 package com.lti.exception;
 
-public class RegisterServiceException extends RuntimeException{
+public class RegisterServiceException extends RuntimeException {
 
 	public RegisterServiceException() {
 		super();
@@ -22,7 +22,5 @@ public class RegisterServiceException extends RuntimeException{
 	public RegisterServiceException(Throwable cause) {
 		super(cause);
 	}
-	
-	
 
 }

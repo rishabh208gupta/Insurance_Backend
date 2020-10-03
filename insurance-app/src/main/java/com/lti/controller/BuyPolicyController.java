@@ -94,6 +94,7 @@ public class BuyPolicyController {
 			PaymentStatus paymentStatus = new PaymentStatus();
 			paymentStatus.setStatus(true);
 			paymentStatus.setStatusMessage("payment successful");
+			paymentStatus.setPolicyNo(payment.getNewPolicy().getPolicyNo());
 			return paymentStatus;
 		}
 		catch(Exception e) {

@@ -49,6 +49,8 @@ public class BuyPolicyService {
 	
 	@Transactional
 	public Payment makePayment(Payment payment) {
+		NewPolicy newPolicy = buyPolicyDao.fetchById(NewPolicy.class,payment.getNewPolicy().getPolicyNo());
+		payment.setNewPolicy(newPolicy);
 		return buyPolicyDao.save(payment);
 	}
 }

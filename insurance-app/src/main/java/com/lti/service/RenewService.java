@@ -29,8 +29,9 @@ public class RenewService {
 		return renewDao.isPolicyExisting(policyNo);
 	}
 
-	public boolean hasPolicyExpired(int policyNo, int policyDuration) {
+	public boolean hasPolicyExpired(int policyNo) {
 		LocalDate dateOfPayment = renewDao.paymentDate(policyNo);
+		int policyDuration = renewDao.fetchPolicyDurationByPolicyNo(policyNo);
 		Period date = Period.between(dateOfPayment, LocalDate.now());
 		if (date.getYears() > policyDuration) {
 			return true;

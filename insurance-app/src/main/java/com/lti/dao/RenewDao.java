@@ -35,5 +35,12 @@ public class RenewDao extends GenericDao {
 				.setParameter("policyType", policyType).setParameter("policyDuration", policyDuration)
 				.getSingleResult();
 	}
+	
+	public int fetchPolicyDurationByPolicyNo(int policyNo) {
+		return (int) entityManager
+				.createQuery("select p.policyDuration from NewPolicy n join n.policy p where n.policyNo=:policyNo")
+				.setParameter("policyNo", policyNo)
+				.getSingleResult();
+	}
 
 }

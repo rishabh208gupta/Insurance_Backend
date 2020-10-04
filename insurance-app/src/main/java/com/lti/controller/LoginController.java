@@ -29,6 +29,7 @@ public class LoginController {
 			loginStatus.setStatus(true);
 			loginStatus.setStatusMessage("Login Sucessful");
 			loginStatus.setCustomerId(customer.getCustomerId());
+			loginStatus.setCustomerName(customer.getName());
 			return loginStatus;
 			
 		}

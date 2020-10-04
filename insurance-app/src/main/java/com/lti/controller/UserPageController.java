@@ -1,5 +1,7 @@
 package com.lti.controller;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +83,8 @@ public class UserPageController {
 		UserPayment userPayment = new UserPayment();
 		userPayment.setPaymentId(payment.getPaymentId());
 		userPayment.setPaid(true);
+		Period period = Period.between(payment.getPaymentDate(), LocalDate.now());
+		userPayment.setAge(period.getDays());
 		return userPayment;
 	}
 }

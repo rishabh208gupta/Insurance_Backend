@@ -10,6 +10,7 @@ import com.lti.dto.CheckClaim;
 import com.lti.dto.CheckPayment;
 import com.lti.entity.Claim;
 import com.lti.entity.NewPolicy;
+import com.lti.entity.Payment;
 import com.lti.entity.Vehicle;
 
 @Service
@@ -36,5 +37,9 @@ public class UserPageService {
 	
 	public Claim fetchUserClaimDetails(int claimId) {
 		return userPageDao.fetchById(Claim.class, claimId);
+	}
+	
+	public Payment fetchUserPaymentDetails(int paymentId) {
+		return userPageDao.fetchById(Payment.class, paymentId);
 	}
 }

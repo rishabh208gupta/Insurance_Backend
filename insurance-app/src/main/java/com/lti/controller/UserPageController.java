@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lti.dto.CheckClaim;
 import com.lti.dto.CheckPayment;
 import com.lti.dto.UserClaim;
+import com.lti.dto.UserPayment;
 import com.lti.dto.UserPolicy;
 import com.lti.dto.UserVehicle;
 import com.lti.entity.Claim;
 import com.lti.entity.NewPolicy;
-import com.lti.entity.Policy;
+import com.lti.entity.Payment;
 import com.lti.entity.Vehicle;
 import com.lti.service.UserPageService;
 
@@ -72,5 +73,14 @@ public class UserPageController {
 			userClaim.setClaimId(claimId);
 			return userClaim;
 		}
+	}
+	
+	@GetMapping("/fetch-user-payment-details")
+	public UserPayment fetchUserPaymentDetails(@RequestParam("paymentId") int paymentId) {
+		Payment payment = userPageService.fetchUserPaymentDetails(paymentId);
+		UserPayment userPayment = new UserPayment();
+		userPayment.setPaymentId(payment.getPaymentId());
+		userPayment.setPaid(true);
+		return userPayment;
 	}
 }

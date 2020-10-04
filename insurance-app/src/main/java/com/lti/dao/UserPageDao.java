@@ -16,7 +16,7 @@ public class UserPageDao extends GenericDao{
 	}
 	
 	public List<CheckPayment[]> fetchPaymentForPolicy(int customerId){
-		return entityManager.createQuery("select v.vehicleId, np.policyNo, p.paymentId from Payment p full join c.newPolicy np full join np.vehicle v full join v.customer cus where cus.customerId = :x").setParameter("x", customerId).getResultList();
+		return entityManager.createQuery("select v.vehicleId, np.policyNo, p.paymentId from Payment p full join p.newPolicy np full join np.vehicle v full join v.customer cus where cus.customerId = :x").setParameter("x", customerId).getResultList();
 	}
 	
 	

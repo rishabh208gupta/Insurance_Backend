@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.CheckClaim;
 import com.lti.dto.UserClaim;
+import com.lti.dto.UserPolicy;
+import com.lti.dto.UserVehicle;
 import com.lti.entity.Claim;
 import com.lti.entity.NewPolicy;
 import com.lti.entity.Policy;
@@ -29,14 +31,24 @@ public class UserPageController {
 	}
 	
 	@GetMapping("/fetch-user-vehicle-details")
-	public Vehicle fetchUserVehicleDetails(@RequestParam("vehicleId") int vehicleId) {
-		return userPageService.fetchUserVehicleDetails(vehicleId);
+	public UserVehicle fetchUserVehicleDetails(@RequestParam("vehicleId") int vehicleId) {
+		Vehicle vehicle= userPageService.fetchUserVehicleDetails(vehicleId);
+		UserVehicle userVehicle = new UserVehicle();
+		userVehicle.setVehicleId(vehicle.getVehicleId());
+		userVehicle.setVehicleType(vehicle.getVehicleType());
+		userVehicle.setChasisNo(vehicle.getChasisNo());
+		return userVehicle;
 	}
 	
 	@GetMapping("/fetch-user-policy-details")
-	public Policy fetchUserPolicyDetails(@RequestParam("policyNo") int policyNo) {
+	public UserPolicy fetchUserPolicyDetails(@RequestParam("policyNo") int policyNo) {
 		NewPolicy newPolicy = userPageService.fetchUserPolicyDetails(policyNo);
-		return newPolicy.getPolicy();
+		UserPolicy userPolicy = new UserPolicy();
+		userPolicy.setPolicyNo(newPolicy.getPolicyNo());
+		userPolicy.setPolicyType(newPolicy.getPolicy().getPolicyType());
+		userPolicy.setPolicyDuration(newPolicy.getPolicy().getPolicyDuration());
+		return userPolicy;
+		
 	}
 	
 	@GetMapping("/fetch-user-claim-details")

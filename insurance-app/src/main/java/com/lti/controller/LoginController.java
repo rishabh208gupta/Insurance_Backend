@@ -27,7 +27,7 @@ public class LoginController {
 			Customer customer=loginService.login(login.getEmail(), login.getPassword());
 			LoginStatus loginStatus = new LoginStatus();
 			loginStatus.setStatus(true);
-			loginStatus.setStatusMessage("Login Sucessful");
+			loginStatus.setStatusMessage("Login Successful");
 			loginStatus.setCustomerId(customer.getCustomerId());
 			loginStatus.setCustomerName(customer.getName());
 			return loginStatus;

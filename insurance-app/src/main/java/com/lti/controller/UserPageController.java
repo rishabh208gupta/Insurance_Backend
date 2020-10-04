@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.CheckClaim;
+import com.lti.dto.CheckPayment;
 import com.lti.dto.UserClaim;
 import com.lti.dto.UserPolicy;
 import com.lti.dto.UserVehicle;
@@ -28,6 +29,11 @@ public class UserPageController {
 	@GetMapping("/fetch-claim-policy")
 	public List<CheckClaim[]> fetchClaimForPolicy(@RequestParam("customerId") int customerId){
 		return userPageService.fetchClaimForPolicy(customerId);
+	}
+	
+	@GetMapping("/fetch-payment-policy")
+	public List<CheckPayment[]> fetchPaymentForPolicy(@RequestParam("customerId") int customerId){
+		return userPageService.fetchPaymentForPolicy(customerId);
 	}
 	
 	@GetMapping("/fetch-user-vehicle-details")

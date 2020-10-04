@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.lti.dao.UserPageDao;
 import com.lti.dto.CheckClaim;
+import com.lti.dto.CheckPayment;
 import com.lti.entity.Claim;
 import com.lti.entity.NewPolicy;
 import com.lti.entity.Vehicle;
@@ -19,6 +20,10 @@ public class UserPageService {
 	
 	public List<CheckClaim[]> fetchClaimForPolicy(int customerId){
 		return userPageDao.fetchClaimForPolicy(customerId);
+	}
+	
+	public List<CheckPayment[]> fetchPaymentForPolicy(int customerId){
+		return userPageDao.fetchPaymentForPolicy(customerId);
 	}
 	
 	public Vehicle fetchUserVehicleDetails(int vehicleId) {

@@ -19,9 +19,9 @@ public class RegisterService {
 	public String registeration(Customer customer) {
 		if (!customerDao.isCustomerPresent(customer.getEmail())) {
 			customer = customerDao.register(customer);
-			Customer referenceNo = customerDao.findByEmail(customer.getEmail());
-			System.out.println(referenceNo);
-			String info = "Congratulations for registration. Your registration id is " + referenceNo;
+			//Customer referenceNo = customerDao.findByEmail(customer.getEmail());
+			//System.out.println(referenceNo);
+			String info = "Congratulations for registration. We’re here for you. ";
 			String email = customer.getEmail();
 			emailService.Mailer(email, info);
 			return "Customer registration sucessfull";

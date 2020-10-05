@@ -15,7 +15,7 @@ public class EmailService {
 	public void Mailer(String email, String info) {
 
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("bigladproject@outlook.com");
+		message.setFrom("abc_12341983@outlook.com");
 		message.setTo(email);
 		message.setSubject("Do-Not-Reply to this mail");
 		message.setText("Greetings, " + info);

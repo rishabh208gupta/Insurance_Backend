@@ -22,11 +22,11 @@ public class LoginService {
 		try {
 			if(!loginDao.isCustomerPresent(email))
 				throw new LoginServiceException("customer not registered");
-				int id=loginDao.findByEmailAndPassword(email, password);
+			int id=loginDao.findByEmailAndPassword(email, password);
 			return loginDao.findById(id);
 		}
 		catch(EmptyResultDataAccessException e) {
-			throw new LoginServiceException("Invalid email,password");
+			throw new LoginServiceException("Invalid email/password");
 		}
 	}
 

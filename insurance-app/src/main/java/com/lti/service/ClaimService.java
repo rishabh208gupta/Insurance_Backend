@@ -1,6 +1,7 @@
 package com.lti.service;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,18 @@ public class ClaimService {
 			throw new ClaimException("claim details not inserted");
 		}
 		
+	}
+	
+	public boolean hasPolicyExpired(int policyNo) {
+		LocalDate dateOfPayment = claimDao.paymentDate(policyNo);
+		int policyDuration = claimDao.fetchPolicyDurationByPolicyNo(policyNo);
+		Period date = Period.between(dateOfPayment, LocalDate.now());
+		if (date.getYears() > policyDuration) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 	
 	public boolean isPolicyPresent(int policyNo) {

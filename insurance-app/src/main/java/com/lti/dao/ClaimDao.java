@@ -1,5 +1,6 @@
 package com.lti.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -42,5 +43,19 @@ public class ClaimDao extends GenericDao {
 				.setParameter("status", "%"+name+"%")
 				.getSingleResult() ==1  ?true:false;
 	}
+	
+	public LocalDate paymentDate(int policyNo) {
+		return (LocalDate) entityManager
+				.createQuery("select max(p.paymentDate) from Payment p join p.newPolicy n where n.policyNo=:policyNo")
+				.setParameter("policyNo", policyNo).getSingleResult();
+	}
+	
+	public int fetchPolicyDurationByPolicyNo(int policyNo) {
+		return (int) entityManager
+				.createQuery("select p.policyDuration from NewPolicy n join n.policy p where n.policyNo=:policyNo")
+				.setParameter("policyNo", policyNo)
+				.getSingleResult();
+	}
+
 
 }

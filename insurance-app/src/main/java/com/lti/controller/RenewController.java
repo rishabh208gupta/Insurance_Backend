@@ -39,7 +39,7 @@ public class RenewController {
 				throw new RenewException("there is no policy with this policy number");
 			if (!renewService.hasPolicyExpired(policyNo))
 				throw new PolicyNotExpiredException(
-						"policy has not expired yet , one cannot renew after expiry of policy ");
+						"policy has not expired yet , one can renew after expiry of policy ");
 			PolicyRegistrationStatus policyRegistrationStatus = new PolicyRegistrationStatus();
 			policyRegistrationStatus.setPolicyNo(policyNo);
 			policyRegistrationStatus.setStatus(true);

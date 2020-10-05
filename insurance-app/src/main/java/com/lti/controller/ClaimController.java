@@ -62,6 +62,9 @@ public class ClaimController {
 		try {
 			if(claimService.isClaimPending(policyNo)) 
 				throw new ClaimException("user cannot claim multiple time before approval of claim");
+			if(claimService.hasPolicyExpired(policyNo)) {
+				throw new ClaimException("policy has expired you cannot claim");
+			}
 			if (claimService.isPolicyPresent(policyNo)) {
 				Claim claim = claimService.insertClaimDetails(policyNo, reason);
 				StatusClaim statusClaim = new StatusClaim();

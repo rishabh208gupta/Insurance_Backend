@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lti.dao.DashboardDao;
 import com.lti.entity.Admin;
 import com.lti.entity.Claim;
+import com.lti.entity.Customer;
 import com.lti.exception.DashboardServiceException;
 
 
@@ -47,6 +48,15 @@ public class DashboardService {
 		try {
 			List<Claim> list=dashboardDao.fetchAllClaimDetails();
 			return list;
+		}
+		catch(EmptyResultDataAccessException e) {
+			throw new DashboardServiceException("No data found!");
+		}
+	}
+	
+	public Customer fetchCustomerByClaimId(int claimId) {
+		try {
+			return dashboardDao.fetchCustomerDetailsfromClaimId(claimId);
 		}
 		catch(EmptyResultDataAccessException e) {
 			throw new DashboardServiceException("No data found!");

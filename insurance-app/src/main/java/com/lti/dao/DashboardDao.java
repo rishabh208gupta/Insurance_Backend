@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.entity.Admin;
 import com.lti.entity.Claim;
+import com.lti.entity.Customer;
 import com.lti.entity.NewPolicy;
 
 
@@ -46,6 +47,15 @@ public class DashboardDao extends GenericDao {
 	public List<Claim> fetchAllClaimDetails() {
 		return entityManager
 				.createQuery("select c from Claim c ").getResultList();
+	}
+	
+	public Customer fetchCustomerDetailsfromClaimId(int claimId) {
+		return (Customer) entityManager
+				.createQuery("select c from Claim cl join cl.newPolicy "
+						+ "n join n.vehicle v join v.customer where c.claimId=:claimId ")
+				.setParameter("calimId", claimId)
+				.getSingleResult();
+		
 	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.AdminFetchClaimDetails;
@@ -15,6 +16,7 @@ import com.lti.dto.AdminStatus;
 import com.lti.dto.Status;
 import com.lti.entity.Admin;
 import com.lti.entity.Claim;
+import com.lti.entity.Customer;
 import com.lti.exception.DashboardServiceException;
 
 import com.lti.service.DashboardService;
@@ -87,5 +89,18 @@ public class DashboardController {
 		return null;
 		
 	}
+	
+	/*
+	@GetMapping(path="/userdetails")
+	public Customer fetchUserDetails(@RequestParam("claimId") int claimId){
+		try {
+			return dashboardService.fetchCustomerByClaimId(claimId);
+		}
+		catch(DashboardServiceException e) {
+			
+			
+		}
+	}
+	*/
 
 }

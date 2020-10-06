@@ -52,10 +52,11 @@ public class DashboardDao extends GenericDao {
 	public Customer fetchCustomerDetailsfromClaimId(int claimId) {
 		return (Customer) entityManager
 				.createQuery("select c from Claim cl join cl.newPolicy "
-						+ "n join n.vehicle v join v.customer where c.claimId=:claimId ")
-				.setParameter("calimId", claimId)
+						+ "n join n.vehicle v join v.customer c where cl.claimId=:claimId ")
+				.setParameter("claimId", claimId)
 				.getSingleResult();
 		
 	}
+	
 
 }

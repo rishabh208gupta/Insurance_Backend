@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.ClaimCustomerDetails;
+import com.lti.dto.Status;
 import com.lti.dto.StatusClaim;
 import com.lti.entity.Claim;
 import com.lti.entity.NewPolicy;
@@ -91,14 +92,20 @@ public class ClaimController {
 	
 	
 	@GetMapping("/claim-email")
-	public String sendChatEmai(@RequestParam("chatMail") String chatMail, @RequestParam("policyNo") int policyNo) {
+	public Status sendChatEmai(@RequestParam("chatMail") String chatMail, @RequestParam("customerId") int customerId) {
 		try {
-			emailServiceForChat.sendMailForChat(chatMail, policyNo);
-			return "Email Sent";
+			emailServiceForChat.sendMailForChat(chatMail, customerId);
+			Status status=new Status();
+			status.setStatus(true);;
+			status.setStatusMessage("email sent");
+			return status;
 			
 		}
 		catch(ClaimException e) {
-			return "Try Again later";
+			Status status=new Status();
+			status.setStatus(false);;
+			status.setStatusMessage("please try later");
+			return status;
 			
 		}
 		

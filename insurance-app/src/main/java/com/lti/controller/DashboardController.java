@@ -1,5 +1,6 @@
 package com.lti.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,8 +64,27 @@ public class DashboardController {
 	
 	@GetMapping(path="/fetchallclaims")
 	public List<Claim> fetchClaims(){
-		List<Claim> claim=dashboardService.fetchAllClaims();
-		return claim;
+		try {
+			List<Claim> claimslist=dashboardService.fetchAllClaims();
+			List<Claim> claims=new ArrayList<>();
+			for(int i=0;i<claimslist.size();i++) {
+				Claim claim=new Claim();
+				claim.setClaimId(claimslist.get(i).getClaimId());
+				claim.setReason(claimslist.get(i).getReason());
+				claim.setStatus(claimslist.get(i).getStatus());
+				claim.setDateApplied(claimslist.get(i).getDateApplied());
+				claim.setAdminAmount(claimslist.get(i).getAdminAmount());
+				claim.setNewPolicy(claimslist.get(i).getNewPolicy());
+				claims.add(claim);
+			}
+			return claims;
+		}
+		catch(DashboardServiceException e) {
+			e.printStackTrace();
+			
+		}
+		return null;
+		
 	}
 
 }

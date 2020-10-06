@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.dto.AdminApproval;
 import com.lti.dto.AdminFetchClaimDetails;
 import com.lti.dto.AdminStatus;
+import com.lti.dto.CustomerAdminPage;
 import com.lti.dto.Status;
 import com.lti.entity.Admin;
 import com.lti.entity.Claim;
@@ -90,17 +92,46 @@ public class DashboardController {
 		
 	}
 	
-	/*
+	
 	@GetMapping(path="/userdetails")
-	public Customer fetchUserDetails(@RequestParam("claimId") int claimId){
+	public CustomerAdminPage fetchUserDetails(@RequestParam("claimId") int claimId){
 		try {
-			return dashboardService.fetchCustomerByClaimId(claimId);
+			Customer customer= dashboardService.fetchCustomerByClaimId(claimId);
+			CustomerAdminPage customerAdminPage = new CustomerAdminPage();
+			customerAdminPage.setName(customer.getName());
+			customerAdminPage.setAddress(customer.getAddress());
+			customerAdminPage.setCustomerId(customer.getCustomerId());
+			customerAdminPage.setDateOfBirth(customer.getDateOfBirth());
+			customerAdminPage.setEmail(customer.getEmail());
+			customerAdminPage.setPhoneNo(customer.getPhoneNo());
+			return customerAdminPage;
 		}
 		catch(DashboardServiceException e) {
 			
+			e.printStackTrace();
 			
 		}
+		return null;
 	}
-	*/
+	
+	
+	@PostMapping(path="/adminapproval")
+	public Status updateTableClaim(@RequestBody AdminApproval adminApproval) {
+		try {
+			dashboardService.adminApproval(adminApproval);
+			Status status =new Status();
+			status.setStatus(true);
+			status.setStatusMessage("data has updated sucessfully");
+			return status;
+		}
+		catch(DashboardServiceException e) {
+			Status status =new Status();
+			status.setStatus(false);
+			status.setStatusMessage("data has not updated");
+			return status;
+		}
+		
+	}
+	
 
 }

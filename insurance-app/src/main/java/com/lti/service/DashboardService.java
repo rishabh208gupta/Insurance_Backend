@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.dao.DashboardDao;
+import com.lti.dto.AdminApproval;
 import com.lti.entity.Admin;
 import com.lti.entity.Claim;
 import com.lti.entity.Customer;
@@ -61,5 +62,18 @@ public class DashboardService {
 		catch(EmptyResultDataAccessException e) {
 			throw new DashboardServiceException("No data found!");
 		}
+	}
+	
+	public void adminApproval(AdminApproval adminApproval) {
+		try {
+		Claim claim= dashboardDao.fetchById(Claim.class, adminApproval.getClaimId());
+		claim.setAdminAmount(adminApproval.getAmount());
+		claim.setStatus(adminApproval.getStatus());
+		dashboardDao.save(claim);
+		}
+		catch(DashboardServiceException e) {
+			throw new DashboardServiceException("data not updated");
+		}
+		
 	}
 }

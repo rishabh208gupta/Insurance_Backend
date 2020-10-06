@@ -127,7 +127,7 @@ public class DashboardController {
 		catch(DashboardServiceException e) {
 			Status status =new Status();
 			status.setStatus(false);
-			status.setStatusMessage("data has updated");
+			status.setStatusMessage("data has not updated");
 			return status;
 		}
 		

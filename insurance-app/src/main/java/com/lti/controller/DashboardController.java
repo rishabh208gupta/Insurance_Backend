@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.dto.AdminFetchClaimDetails;
 import com.lti.dto.AdminStatus;
 import com.lti.dto.Status;
 import com.lti.entity.Admin;
@@ -63,18 +64,18 @@ public class DashboardController {
 	}
 	
 	@GetMapping(path="/fetchallclaims")
-	public List<Claim> fetchClaims(){
+	public List<AdminFetchClaimDetails> fetchClaims(){
 		try {
 			List<Claim> claimslist=dashboardService.fetchAllClaims();
-			List<Claim> claims=new ArrayList<>();
+			List<AdminFetchClaimDetails> claims=new ArrayList<>();
 			for(int i=0;i<claimslist.size();i++) {
-				Claim claim=new Claim();
+				AdminFetchClaimDetails claim=new AdminFetchClaimDetails();
 				claim.setClaimId(claimslist.get(i).getClaimId());
 				claim.setReason(claimslist.get(i).getReason());
 				claim.setStatus(claimslist.get(i).getStatus());
 				claim.setDateApplied(claimslist.get(i).getDateApplied());
 				claim.setAdminAmount(claimslist.get(i).getAdminAmount());
-				claim.setNewPolicy(claimslist.get(i).getNewPolicy());
+				claim.setPolicyNo(claimslist.get(i).getNewPolicy().getPolicyNo());
 				claims.add(claim);
 			}
 			return claims;

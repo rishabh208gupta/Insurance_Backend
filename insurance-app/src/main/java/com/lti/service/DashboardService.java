@@ -1,5 +1,7 @@
 package com.lti.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -7,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.dao.DashboardDao;
 import com.lti.entity.Admin;
-
+import com.lti.entity.Claim;
 import com.lti.exception.DashboardServiceException;
 
 
@@ -40,5 +42,14 @@ public class DashboardService {
 			throw new DashboardServiceException("Invalid username/password");
 		}
 	}
-
+	
+	public List<Claim> fetchAllClaims() {
+		try {
+			List<Claim> list=dashboardDao.fetchAllClaimDetails();
+			return list;
+		}
+		catch(EmptyResultDataAccessException e) {
+			throw new DashboardServiceException("No data found!");
+		}
+	}
 }

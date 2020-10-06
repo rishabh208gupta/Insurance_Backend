@@ -1,5 +1,7 @@
 package com.lti.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.entity.Admin;
+import com.lti.entity.Claim;
+import com.lti.entity.NewPolicy;
 
 
 
@@ -37,6 +41,11 @@ public class DashboardDao extends GenericDao {
 	
 	public boolean isAdminPresent(String username) {
 		return (Long)entityManager.createQuery("select count(a.adminId) from Admin a where a.username=:un ").setParameter("un", username).getSingleResult()==1? true:false;
+	}
+	
+	public List<Claim> fetchAllClaimDetails() {
+		return entityManager
+				.createQuery("select c from Claim c ").getResultList();
 	}
 
 }

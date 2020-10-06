@@ -1,7 +1,10 @@
 package com.lti.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lti.dto.AdminStatus;
 import com.lti.dto.Status;
 import com.lti.entity.Admin;
-
+import com.lti.entity.Claim;
 import com.lti.exception.DashboardServiceException;
 
 import com.lti.service.DashboardService;
@@ -56,6 +59,12 @@ public class DashboardController {
 			
 			return adminStatus;
 		}
+	}
+	
+	@GetMapping(path="/fetchallclaims")
+	public List<Claim> fetchClaims(){
+		List<Claim> claim=dashboardService.fetchAllClaims();
+		return claim;
 	}
 
 }

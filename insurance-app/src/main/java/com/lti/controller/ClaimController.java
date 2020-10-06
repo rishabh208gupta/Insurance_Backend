@@ -16,6 +16,7 @@ import com.lti.entity.NewPolicy;
 import com.lti.entity.Policy;
 import com.lti.exception.ClaimException;
 import com.lti.service.ClaimService;
+import com.lti.service.EmailServiceForChat;
 
 @RestController
 @CrossOrigin
@@ -23,6 +24,9 @@ public class ClaimController {
 
 	@Autowired
 	private ClaimService claimService;
+	
+	@Autowired
+	private EmailServiceForChat emailServiceForChat;
 
 	@GetMapping("/claimpage")
 	public List<ClaimCustomerDetails> displayOnClaimPage(@RequestParam("customerId") int id) {
@@ -84,4 +88,20 @@ public class ClaimController {
 		}
 
 	}
+	
+	
+	@GetMapping("/claim-email")
+	public String sendChatEmai(@RequestParam("chatMail") String chatMail, @RequestParam("policyNo") int policyNo) {
+		try {
+			emailServiceForChat.sendMailForChat(chatMail, policyNo);
+			return "Email Sent";
+			
+		}
+		catch(ClaimException e) {
+			return "Try Again later";
+			
+		}
+		
+	}
+	
 }

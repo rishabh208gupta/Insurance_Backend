@@ -103,8 +103,11 @@ public class DashboardController {
 			adminVehicle.setEngineNo(vehicle.getEngineNo());
 			adminVehicle.setManufacturer(vehicle.getManufacturer());
 			adminVehicle.setModel(vehicle.getModel());
-			//adminVehicle.;
-			return vehicle;
+			adminVehicle.setPurchaseDate(vehicle.getPurchaseDate());
+			adminVehicle.setRegistrationNo(vehicle.getRegistrationNo());
+			adminVehicle.setVehicleId(vehicle.getVehicleId());
+			adminVehicle.setVehicleType(vehicle.getVehicleType());
+			return adminVehicle;
 		}
 		catch(DashboardServiceException e) {
 			

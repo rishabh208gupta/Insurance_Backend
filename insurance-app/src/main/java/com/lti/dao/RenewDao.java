@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -42,5 +43,11 @@ public class RenewDao extends GenericDao {
 				.setParameter("policyNo", policyNo)
 				.getSingleResult();
 	}
-
+	
+	public double fetchAmountPaid(int policyNo) {
+		return 	(double) entityManager
+				.createQuery("select p.amount from Payment p join p.newPolicy n where n.policyNo=:policyNo order by p.paymentDate desc")
+				.setParameter("policyNo",policyNo)
+				 .setMaxResults(1).getSingleResult()  ;
+	}
 }

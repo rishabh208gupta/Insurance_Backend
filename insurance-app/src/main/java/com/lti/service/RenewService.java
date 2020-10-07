@@ -69,5 +69,12 @@ public class RenewService {
 			throw new RenewException("payment not sucessful");
 		}
 	}
+	public double premiumAmount(int policyNo,int newPolicyDuration) {
+		int oldPolicyDuration = renewDao.fetchPolicyDurationByPolicyNo(policyNo);
+		double amount= renewDao.fetchAmountPaid(policyNo);
+		double newAmount= amount*newPolicyDuration/oldPolicyDuration;
+		return newAmount;
+		
+	}
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lti.dto.PaymentRenew;
 import com.lti.dto.PaymentStatus;
 import com.lti.dto.PolicyRegistrationStatus;
+import com.lti.dto.PolicyRegistrationStatusForRenew;
 import com.lti.dto.VehicleRegistrationStatus;
 import com.lti.entity.NewPolicy;
 import com.lti.entity.Payment;
@@ -40,24 +41,26 @@ public class RenewController {
 			if (!renewService.hasPolicyExpired(policyNo))
 				throw new PolicyNotExpiredException(
 						"policy has not expired yet , one can renew after expiry of policy ");
-			PolicyRegistrationStatus policyRegistrationStatus = new PolicyRegistrationStatus();
-			policyRegistrationStatus.setPolicyNo(policyNo);
-			policyRegistrationStatus.setStatus(true);
-			policyRegistrationStatus.setStatusMessage("proceed for payment");
-			return policyRegistrationStatus;
+			double newAmount=renewService.premiumAmount(policyNo, policyDuration);
+			PolicyRegistrationStatusForRenew policyRegistrationStatusForRenew = new  PolicyRegistrationStatusForRenew();
+			policyRegistrationStatusForRenew.setAmount(newAmount);
+			policyRegistrationStatusForRenew.setPolicyNo(policyNo);
+			policyRegistrationStatusForRenew.setStatus(true);
+			policyRegistrationStatusForRenew.setStatusMessage("proceed for payment");
+			return policyRegistrationStatusForRenew;
 
 		} catch (RenewException e) {
-			PolicyRegistrationStatus policyRegistrationStatus = new PolicyRegistrationStatus();
-			policyRegistrationStatus.setStatus(false);
-			policyRegistrationStatus.setStatusMessage("there is no policy existing to renew");
-			return policyRegistrationStatus;
+			PolicyRegistrationStatusForRenew policyRegistrationStatusForRenew = new PolicyRegistrationStatusForRenew();
+			policyRegistrationStatusForRenew.setStatus(false);
+			policyRegistrationStatusForRenew.setStatusMessage("there is no policy existing to renew");
+			return policyRegistrationStatusForRenew;
 
 		} catch (PolicyNotExpiredException e) {
-			PolicyRegistrationStatus policyRegistrationStatus = new PolicyRegistrationStatus();
-			policyRegistrationStatus.setStatus(false);
-			policyRegistrationStatus
+			PolicyRegistrationStatusForRenew policyRegistrationStatusForRenew= new PolicyRegistrationStatusForRenew();
+			policyRegistrationStatusForRenew.setStatus(false);
+			policyRegistrationStatusForRenew
 					.setStatusMessage("policy has not expired yet , one can renew after expiry of policy");
-			return policyRegistrationStatus;
+			return policyRegistrationStatusForRenew;
 
 		}
 	}
@@ -73,6 +76,7 @@ public class RenewController {
 			PaymentStatus paymentStatus = new PaymentStatus();
 			paymentStatus.setStatus(true);
 			paymentStatus.setStatusMessage("payment successful");
+			paymentStatus.setPolicyNo(renewPayment.getNewPolicy().getPolicyNo());
 			return paymentStatus;
 		} catch (RenewException e) {
 			PaymentStatus paymentStatus = new PaymentStatus();

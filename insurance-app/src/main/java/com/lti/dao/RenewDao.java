@@ -53,7 +53,7 @@ public class RenewDao extends GenericDao {
 	
 	public boolean ifCustomerHasPaid(int policyNo) {
 				long isBool= (long)entityManager
-				.createQuery("select count(p.paymentId) from Payment p where p.policyNo=:policyNo")
+				.createQuery("select count(p.paymentId) from Payment p join p.newPolicy n where n.policyNo=:policyNo")
 				.setParameter("policyNo", policyNo)
 				.getSingleResult();
 				if(isBool>0)

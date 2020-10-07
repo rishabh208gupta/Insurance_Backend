@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lti.dto.AdminApproval;
 import com.lti.dto.AdminFetchClaimDetails;
 import com.lti.dto.AdminStatus;
+import com.lti.dto.AdminVehicleDetails;
 import com.lti.dto.CustomerAdminPage;
 import com.lti.dto.Status;
 import com.lti.entity.Admin;
@@ -96,6 +97,13 @@ public class DashboardController {
 	public Vehicle fetchVehicleByClaimId(@RequestParam("claimId") int claimId) {
 		try {
 			Vehicle vehicle=dashboardService.fetchVehicleByClaimId(claimId);
+			AdminVehicleDetails adminVehicle= new AdminVehicleDetails();
+			adminVehicle.setChasisNo(vehicle.getChasisNo());
+			adminVehicle.setDlNo(vehicle.getDlNo());
+			adminVehicle.setEngineNo(vehicle.getEngineNo());
+			adminVehicle.setManufacturer(vehicle.getManufacturer());
+			adminVehicle.setModel(vehicle.getModel());
+			//adminVehicle.;
 			return vehicle;
 		}
 		catch(DashboardServiceException e) {

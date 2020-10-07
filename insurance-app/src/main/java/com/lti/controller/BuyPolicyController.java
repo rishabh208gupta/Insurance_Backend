@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lti.dto.Bill;
 import com.lti.dto.PaymentStatus;
 import com.lti.dto.PolicyRegistrationStatus;
+import com.lti.dto.PremiumStatus;
 import com.lti.dto.VehicleRegistrationStatus;
 import com.lti.entity.NewPolicy;
 import com.lti.entity.Payment;
@@ -102,6 +103,22 @@ public class BuyPolicyController {
 			paymentStatus.setStatus(false);
 			paymentStatus.setStatusMessage(e.getMessage());
 			return paymentStatus;
+		}
+	}
+	
+	@GetMapping("/buy-policy-calculate-premium")
+	public PremiumStatus calculatePremium(@RequestParam("vehicleId") int vehicleId) {
+		try {
+			PremiumStatus premiumStatus = buyPolicyService.calculatePremium(vehicleId);
+			premiumStatus.setStatus(true);
+			premiumStatus.setStatusMessage("calculated premium");
+			return premiumStatus;
+		}
+		catch(BuyPolicyException e) {
+			PremiumStatus premiumStatus = new PremiumStatus();
+			premiumStatus.setStatus(false);
+			premiumStatus.setStatusMessage(e.getMessage());
+			return premiumStatus;
 		}
 	}
 }

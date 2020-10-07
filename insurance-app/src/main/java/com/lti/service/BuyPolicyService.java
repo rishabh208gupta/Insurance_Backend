@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lti.dao.BuyPolicyDao;
+import com.lti.dto.PremiumAnswer;
+import com.lti.dto.PremiumStatus;
 import com.lti.entity.Customer;
 import com.lti.entity.NewPolicy;
 import com.lti.entity.Payment;
@@ -18,6 +20,9 @@ public class BuyPolicyService {
 
 	@Autowired
 	private BuyPolicyDao buyPolicyDao;
+	
+	@Autowired
+	private CalculatePremiumService calculatePremiumService;
 	
 	@Transactional
 	public Vehicle registerVehicle(Vehicle vehicle) {
@@ -52,5 +57,73 @@ public class BuyPolicyService {
 		NewPolicy newPolicy = buyPolicyDao.fetchById(NewPolicy.class,payment.getNewPolicy().getPolicyNo());
 		payment.setNewPolicy(newPolicy);
 		return buyPolicyDao.save(payment);
+	}
+	
+	public PremiumStatus calculatePremium(int vehicleId) {
+		Vehicle vehicle = buyPolicyDao.fetchById(Vehicle.class, vehicleId);
+		PremiumStatus premiumStatus = new PremiumStatus();
+		
+		if(vehicle.getVehicleType()=="2-wheeler") {
+			int price = 50000;
+			PremiumAnswer resultComp1 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 7, 1) ;
+			premiumStatus.setIdvComp1(resultComp1.getIdv());
+			premiumStatus.setAmountComp1(resultComp1.getEstimatedValue());
+			
+			PremiumAnswer resultComp2 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 7, 2) ;
+			premiumStatus.setIdvComp2(resultComp2.getIdv());
+			premiumStatus.setAmountComp2(resultComp2.getEstimatedValue());
+			
+			PremiumAnswer resultComp3 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 7, 3) ;
+			premiumStatus.setIdvComp3(resultComp3.getIdv());
+			premiumStatus.setAmountComp3(resultComp3.getEstimatedValue());
+			
+			PremiumAnswer resultParty1 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 6.5, 1) ;
+			premiumStatus.setIdvParty1(resultParty1.getIdv());
+			premiumStatus.setAmountParty1(resultParty1.getEstimatedValue());
+			
+			PremiumAnswer resultParty2 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 6.5, 2) ;
+			premiumStatus.setIdvParty2(resultParty2.getIdv());
+			premiumStatus.setAmountParty2(resultParty2.getEstimatedValue());
+			
+			PremiumAnswer resultParty3 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 6.5, 3) ;
+			premiumStatus.setIdvParty3(resultParty3.getIdv());
+			premiumStatus.setAmountParty3(resultParty3.getEstimatedValue());
+			
+			return premiumStatus;
+			
+		}
+		else if(vehicle.getVehicleType()=="4-wheeler") {
+			int price = 400000;
+			
+			PremiumAnswer resultComp1 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 7, 1) ;
+			premiumStatus.setIdvComp1(resultComp1.getIdv());
+			premiumStatus.setAmountComp1(resultComp1.getEstimatedValue());
+			
+			PremiumAnswer resultComp2 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 7, 2) ;
+			premiumStatus.setIdvComp2(resultComp2.getIdv());
+			premiumStatus.setAmountComp2(resultComp2.getEstimatedValue());
+			
+			PremiumAnswer resultComp3 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 7, 3) ;
+			premiumStatus.setIdvComp3(resultComp3.getIdv());
+			premiumStatus.setAmountComp3(resultComp3.getEstimatedValue());
+			
+			PremiumAnswer resultParty1 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 6.5, 1) ;
+			premiumStatus.setIdvParty1(resultParty1.getIdv());
+			premiumStatus.setAmountParty1(resultParty1.getEstimatedValue());
+			
+			PremiumAnswer resultParty2 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 6.5, 2) ;
+			premiumStatus.setIdvParty2(resultParty2.getIdv());
+			premiumStatus.setAmountParty2(resultParty2.getEstimatedValue());
+			
+			PremiumAnswer resultParty3 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 6.5, 3) ;
+			premiumStatus.setIdvParty3(resultParty3.getIdv());
+			premiumStatus.setAmountParty3(resultParty3.getEstimatedValue());
+			
+			return premiumStatus;
+		}
+		
+		else {
+			throw new BuyPolicyException("could not calculate premium");
+		}
 	}
 }

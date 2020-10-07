@@ -50,4 +50,16 @@ public class RenewDao extends GenericDao {
 				.setParameter("policyNo",policyNo)
 				 .setMaxResults(1).getSingleResult()  ;
 	}
+	
+	public boolean ifCustomerHasPaid(int policyNo) {
+				long isBool= (long)entityManager
+				.createQuery("select count(p.paymentId) from Payment p where p.policyNo=:policyNo")
+				.setParameter("policyNo", policyNo)
+				.getSingleResult();
+				if(isBool>0)
+					return true;
+				else
+					return false;
+				
+	}
 }

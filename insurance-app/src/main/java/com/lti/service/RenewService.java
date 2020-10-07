@@ -76,5 +76,9 @@ public class RenewService {
 		return newAmount;
 		
 	}
-
+	
+	public boolean ifhasCustomerPaid(int policyNo ) {
+		 return renewDao.ifCustomerHasPaid(policyNo);
+		
+	}
 }

@@ -41,6 +41,9 @@ public class RenewController {
 			if (!renewService.hasPolicyExpired(policyNo))
 				throw new PolicyNotExpiredException(
 						"policy has not expired yet , one can renew after expiry of policy ");
+			if(!renewService.ifhasCustomerPaid(policyNo)) {
+				throw new RenewException("the customer has not paid ");
+			}
 			double newAmount=renewService.premiumAmount(policyNo, policyDuration);
 			PolicyRegistrationStatusForRenew policyRegistrationStatusForRenew = new  PolicyRegistrationStatusForRenew();
 			policyRegistrationStatusForRenew.setAmount(newAmount);

@@ -12,6 +12,7 @@ import com.lti.dto.AdminApproval;
 import com.lti.entity.Admin;
 import com.lti.entity.Claim;
 import com.lti.entity.Customer;
+import com.lti.entity.Vehicle;
 import com.lti.exception.DashboardServiceException;
 
 
@@ -58,6 +59,14 @@ public class DashboardService {
 	public Customer fetchCustomerByClaimId(int claimId) {
 		try {
 			return dashboardDao.fetchCustomerDetailsfromClaimId(claimId);
+		}
+		catch(EmptyResultDataAccessException e) {
+			throw new DashboardServiceException("No data found!");
+		}
+	}
+	public Vehicle fetchVehicleByClaimId(int claimId) {
+		try {
+			return dashboardDao.fetchVehicleDetailsfromClaimId(claimId);
 		}
 		catch(EmptyResultDataAccessException e) {
 			throw new DashboardServiceException("No data found!");

@@ -12,6 +12,7 @@ import com.lti.entity.Admin;
 import com.lti.entity.Claim;
 import com.lti.entity.Customer;
 import com.lti.entity.NewPolicy;
+import com.lti.entity.Vehicle;
 
 
 
@@ -53,6 +54,15 @@ public class DashboardDao extends GenericDao {
 		return (Customer) entityManager
 				.createQuery("select c from Claim cl join cl.newPolicy "
 						+ "n join n.vehicle v join v.customer c where cl.claimId=:claimId ")
+				.setParameter("claimId", claimId)
+				.getSingleResult();
+		
+	}
+	
+	public Vehicle fetchVehicleDetailsfromClaimId(int claimId) {
+		return (Vehicle) entityManager
+				.createQuery("select v from Claim cl join cl.newPolicy "
+						+ "n join n.vehicle v where cl.claimId=:claimId ")
 				.setParameter("claimId", claimId)
 				.getSingleResult();
 		

@@ -27,7 +27,7 @@ public class CalculatePremiumService {
 		if(age>7) {
 			if(vehiclePrice==50000) 
 				idv=5000;
-			else
+			else if(vehiclePrice==400000)
 				idv=25000;
 				
 		}
@@ -37,7 +37,7 @@ public class CalculatePremiumService {
 		
 		if(vehiclePrice==50000) 
 			estimatedValue=(idv*premiumRate*planYear)/100;
-		else
+		else if(vehiclePrice==400000)
 			estimatedValue=(idv*premiumRate*0.5*planYear)/100;
 		
 		

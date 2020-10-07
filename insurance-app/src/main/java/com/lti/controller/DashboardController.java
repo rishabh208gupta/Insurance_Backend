@@ -19,6 +19,7 @@ import com.lti.dto.Status;
 import com.lti.entity.Admin;
 import com.lti.entity.Claim;
 import com.lti.entity.Customer;
+import com.lti.entity.Vehicle;
 import com.lti.exception.DashboardServiceException;
 
 import com.lti.service.DashboardService;
@@ -90,6 +91,19 @@ public class DashboardController {
 		}
 		return null;
 		
+	}
+	@GetMapping(path="/vehiclebyclaimid")
+	public Vehicle fetchVehicleByClaimId(@RequestParam("claimId") int claimId) {
+		try {
+			Vehicle vehicle=dashboardService.fetchVehicleByClaimId(claimId);
+			return vehicle;
+		}
+		catch(DashboardServiceException e) {
+			
+			e.printStackTrace();
+			
+		}
+		return null;
 	}
 	
 	

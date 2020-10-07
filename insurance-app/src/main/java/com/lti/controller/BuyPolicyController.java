@@ -77,7 +77,7 @@ public class BuyPolicyController {
 			bill.setChasisNo(newPolicy.getVehicle().getChasisNo());
 			bill.setPolicyType(newPolicy.getPolicy().getPolicyType());
 			bill.setPolicyDuration(newPolicy.getPolicy().getPolicyDuration());
-			bill.setAmount(1000);
+			
 			return bill;
 		}
 		catch(Exception e) {

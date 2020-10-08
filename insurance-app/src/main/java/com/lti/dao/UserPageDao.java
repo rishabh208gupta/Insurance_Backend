@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.lti.dto.CheckClaim;
 import com.lti.dto.CheckPayment;
+import com.lti.entity.NewPolicy;
 
 
 @Repository
@@ -19,5 +20,12 @@ public class UserPageDao extends GenericDao{
 		return entityManager.createQuery("select v.vehicleId, np.policyNo, p.paymentId from Payment p full join p.newPolicy np full join np.vehicle v full join v.customer cus where cus.customerId = :x").setParameter("x", customerId).getResultList();
 	}
 	
+	public NewPolicy fetchPolicyDetails(int policyNo) {
+		return (NewPolicy) entityManager
+				.createQuery("select n from NewPolicy n where n.policyNo=:policyNo")
+				.setParameter("policyNo", policyNo)
+				.getSingleResult();
+		
+	}
 	
 }

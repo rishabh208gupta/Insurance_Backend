@@ -16,6 +16,7 @@ import com.lti.dto.UserClaim;
 import com.lti.dto.UserPayment;
 import com.lti.dto.UserPolicy;
 import com.lti.dto.UserVehicle;
+import com.lti.dto.VehiclePolicyDetails;
 import com.lti.entity.Claim;
 import com.lti.entity.NewPolicy;
 import com.lti.entity.Payment;
@@ -90,5 +91,26 @@ public class UserPageController {
 		Period period = Period.between(payment.getPaymentDate(), LocalDate.now());
 		userPayment.setAge(period.getDays());
 		return userPayment;
+	}
+	
+	@GetMapping("fetch-vehicle-policy-details")
+	public VehiclePolicyDetails fetchVehiclePolicyDetails(@RequestParam("policyNo") int policyNo) {
+		NewPolicy newPolicy = userPageService.fetchNewPolicyDetails(policyNo);
+		VehiclePolicyDetails vehiclePolicyDetails=new VehiclePolicyDetails();
+		vehiclePolicyDetails.setVehicleId(newPolicy.getVehicle().getVehicleId());
+		vehiclePolicyDetails.setVehicleType(newPolicy.getVehicle().getVehicleType());
+		vehiclePolicyDetails.setManufacturer(newPolicy.getVehicle().getManufacturer());
+		vehiclePolicyDetails.setModel(newPolicy.getVehicle().getModel());
+		vehiclePolicyDetails.setDlNo(newPolicy.getVehicle().getDlNo());
+		vehiclePolicyDetails.setPurchaseDate(newPolicy.getVehicle().getPurchaseDate());
+		vehiclePolicyDetails.setRegistrationNo(newPolicy.getVehicle().getRegistrationNo());
+		vehiclePolicyDetails.setEngineNo(newPolicy.getVehicle().getEngineNo());
+		vehiclePolicyDetails.setChasisNo(newPolicy.getVehicle().getChasisNo());
+		vehiclePolicyDetails.setPolicyType(newPolicy.getPolicy().getPolicyType());
+		vehiclePolicyDetails.setPolicyDuration(newPolicy.getPolicy().getPolicyDuration());
+		return vehiclePolicyDetails;
+		
+		
+		
 	}
 }

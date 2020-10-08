@@ -61,7 +61,7 @@ public class BuyPolicyService {
 	
 	public PremiumStatus calculatePremium(int vehicleId) {
 		Vehicle vehicle = buyPolicyDao.fetchById(Vehicle.class, vehicleId);
-		System.out.println(vehicle.getVehicleType());
+		//System.out.println(vehicle.getVehicleType());
 		PremiumStatus premiumStatus = new PremiumStatus();
 		boolean b ;
 		if(vehicle.getVehicleType().equals("2-wheeler")) {
@@ -73,11 +73,11 @@ public class BuyPolicyService {
 		
 		if(b) {
 			int price = 50000;
-			System.out.println(price);
+			//System.out.println(price);
 			PremiumAnswer resultComp1 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 7, 1) ;
 			premiumStatus.setIdvComp1(resultComp1.getIdv());
 			premiumStatus.setAmountComp1(resultComp1.getEstimatedValue());
-			System.out.println(resultComp1.getIdv()+"   "+resultComp1.getEstimatedValue());
+			//System.out.println(resultComp1.getIdv()+"   "+resultComp1.getEstimatedValue());
 			
 			PremiumAnswer resultComp2 =calculatePremiumService.calculate(price, vehicle.getPurchaseDate(), 7, 2) ;
 			premiumStatus.setIdvComp2(resultComp2.getIdv());

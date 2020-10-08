@@ -42,7 +42,5 @@ public class UserPageService {
 	public Payment fetchUserPaymentDetails(int paymentId) {
 		return userPageDao.fetchById(Payment.class, paymentId);
 	}
-	public NewPolicy fetchNewPolicyDetails(int policyNo) {
-		return userPageDao.fetchPolicyDetails(policyNo);
-	}
+
 }

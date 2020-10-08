@@ -69,7 +69,7 @@ public class UserPageController {
 	public UserClaim fetchUserClaimDetails(@RequestParam("claimId") int claimId) {
 		Claim claim = userPageService.fetchUserClaimDetails(claimId);
 		UserClaim userClaim = new UserClaim();
-		System.out.println(claim.getStatus());
+		//System.out.println(claim.getStatus());
 		boolean b;
 		if(claim.getStatus().equalsIgnoreCase("approved")) {
 			b=true;
@@ -79,7 +79,7 @@ public class UserPageController {
 		}
 		if(b) {
 			userClaim.setClaimed(true);
-			System.out.println("true");
+			//System.out.println("true");
 			userClaim.setClaimAmount(claim.getAdminAmount());
 			userClaim.setClaimId(claimId);
 			userClaim.setAdminMessage("claim approved for amount "+claim.getAdminAmount());
@@ -115,7 +115,7 @@ public class UserPageController {
 	
 	@GetMapping("fetch-vehicle-policy-details")
 	public VehiclePolicyDetails fetchVehiclePolicyDetails(@RequestParam("policyNo") int policyNo) {
-		NewPolicy newPolicy = userPageService.fetchNewPolicyDetails(policyNo);
+		NewPolicy newPolicy = userPageService.fetchUserPolicyDetails(policyNo);
 		VehiclePolicyDetails vehiclePolicyDetails=new VehiclePolicyDetails();
 		vehiclePolicyDetails.setVehicleId(newPolicy.getVehicle().getVehicleId());
 		vehiclePolicyDetails.setVehicleType(newPolicy.getVehicle().getVehicleType());

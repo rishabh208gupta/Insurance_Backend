@@ -58,7 +58,7 @@ public class DashboardController {
 			adminStatus.setStatus(true);
 			adminStatus.setStatusMessage("Login Successful");
 			adminStatus.setAdminId(a.getAdminId());
-			adminStatus.setUserName(a.getUsername());
+			adminStatus.setUsername(a.getUsername());
 			return adminStatus;
 			
 		}

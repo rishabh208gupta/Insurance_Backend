@@ -91,24 +91,4 @@ public class ClaimController {
 	}
 	
 	
-	@GetMapping("/claim-email")
-	public Status sendChatEmai(@RequestParam("chatMail") String chatMail, @RequestParam("customerId") int customerId) {
-		try {
-			emailServiceForChat.sendMailForChat(chatMail, customerId);
-			Status status=new Status();
-			status.setStatus(true);;
-			status.setStatusMessage("email sent");
-			return status;
-			
-		}
-		catch(ClaimException e) {
-			Status status=new Status();
-			status.setStatus(false);;
-			status.setStatusMessage("please try later");
-			return status;
-			
-		}
-		
-	}
-	
 }

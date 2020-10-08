@@ -64,7 +64,7 @@ public class BuyPolicyService {
 		System.out.println(vehicle.getVehicleType());
 		PremiumStatus premiumStatus = new PremiumStatus();
 		boolean b ;
-		if(vehicle.getVehicleType()=="2-wheeler") {
+		if(vehicle.getVehicleType().equals("2-wheeler")) {
 			b=true;
 		}
 		else {

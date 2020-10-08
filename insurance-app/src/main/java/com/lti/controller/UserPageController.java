@@ -71,7 +71,7 @@ public class UserPageController {
 		UserClaim userClaim = new UserClaim();
 		System.out.println(claim.getStatus());
 		boolean b;
-		if(claim.getStatus().equals("Approved")) {
+		if(claim.getStatus().equalsIgnoreCase("approved")) {
 			b=true;
 		}
 		else {
@@ -82,12 +82,23 @@ public class UserPageController {
 			System.out.println("true");
 			userClaim.setClaimAmount(claim.getAdminAmount());
 			userClaim.setClaimId(claimId);
+			userClaim.setAdminMessage("claim approved for amount "+claim.getAdminAmount());
 			return userClaim;
 		}
 		else {
-			userClaim.setClaimed(false);
-			userClaim.setClaimId(claimId);
-			return userClaim;
+			if(claim.getStatus().equalsIgnoreCase("reject")) {
+				userClaim.setClaimed(false);
+				userClaim.setClaimId(claimId);
+				userClaim.setAdminMessage("claim rejected");
+				return userClaim;
+			}
+			else {
+				userClaim.setClaimed(false);
+				userClaim.setClaimId(claimId);
+				userClaim.setAdminMessage("approval pending...");
+				return userClaim;
+			}
+			
 		}
 	}
 	

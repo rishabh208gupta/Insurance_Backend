@@ -4,6 +4,7 @@ public class UserClaim {
 
 	private int claimId;
 	private boolean claimed;
+	private String adminMessage;
 	private double claimAmount;
 	public int getClaimId() {
 		return claimId;
@@ -22,6 +23,12 @@ public class UserClaim {
 	}
 	public void setClaimAmount(double claimAmount) {
 		this.claimAmount = claimAmount;
+	}
+	public String getAdminMessage() {
+		return adminMessage;
+	}
+	public void setAdminMessage(String adminMessage) {
+		this.adminMessage = adminMessage;
 	}
 	
 	

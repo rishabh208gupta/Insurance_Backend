@@ -1,7 +1,7 @@
 package com.lti.dto;
 
 public class ForgotensMail {
-	
+
 	private String mailid;
 
 	public String getMailid() {
@@ -11,5 +11,5 @@ public class ForgotensMail {
 	public void setMailid(String mailid) {
 		this.mailid = mailid;
 	}
-	
+
 }

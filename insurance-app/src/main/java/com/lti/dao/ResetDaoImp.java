@@ -10,16 +10,14 @@ import com.lti.entity.Customer;
 
 @Repository
 public class ResetDaoImp implements ResetDao {
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
 	public Customer getCustomerByMailId(String emailId) {
-		return (Customer)entityManager
-				.createQuery("select c from Customer as c where c.email= :em")
-				.setParameter("em", emailId)
-				.getSingleResult();
+		return (Customer) entityManager.createQuery("select c from Customer as c where c.email= :em")
+				.setParameter("em", emailId).getSingleResult();
 	}
 
 	@Transactional

@@ -5,7 +5,6 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class EmailService {
 
@@ -15,7 +14,7 @@ public class EmailService {
 	public void Mailer(String email, String info) {
 
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("abc_12341983@outlook.com");
+		message.setFrom("project854@outlook.com");
 		message.setTo(email);
 		message.setSubject("Do-Not-Reply to this mail");
 		message.setText("Greetings, " + info);

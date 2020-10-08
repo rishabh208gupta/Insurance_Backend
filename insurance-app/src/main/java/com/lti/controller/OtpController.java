@@ -18,34 +18,33 @@ import com.lti.status.CustomerStatus;
 public class OtpController {
 	@Autowired
 	private OtpService otpService;
-	
+
 	@Autowired
 	private MailSender mailSender;
-	
+
 	@PostMapping("/emailotp")
 	public CustomerStatus sendEmailOtp(@RequestBody ForgotensMail forgotensMail) {
-	CustomerStatus customerStatus = new CustomerStatus();
-		
+		CustomerStatus customerStatus = new CustomerStatus();
+
 		try {
 			String otp = otpService.getOtpSentToEmail(forgotensMail.getMailid());
 			SimpleMailMessage message = new SimpleMailMessage();
-			message.setFrom("abc_12341983@outlook.com");
+			message.setFrom("project854@outlook.com");
 			message.setTo(forgotensMail.getMailid());
 			message.setSubject("no reply");
-			message.setText("You have recieved this mail for verification. Your verfication OTP is : "+otp);
+			message.setText("You have recieved this mail for verification. Your verfication OTP is : " + otp);
 			mailSender.send(message);
-			
+
 			customerStatus.setStatus(100);
-			customerStatus.setMessage("OTP mail send successfully");
+			customerStatus.setMessage("OTP send successfully");
 			customerStatus.setOtp(otp);
 			return customerStatus;
-		}
-		catch(OtpServiceException e) {
+		} catch (OtpServiceException e) {
 			customerStatus.setStatus(101);
 			customerStatus.setMessage(e.getMessage());
 			customerStatus.setOtp(null);
 			return customerStatus;
 		}
-		
+
 	}
 }

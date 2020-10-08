@@ -69,8 +69,17 @@ public class UserPageController {
 	public UserClaim fetchUserClaimDetails(@RequestParam("claimId") int claimId) {
 		Claim claim = userPageService.fetchUserClaimDetails(claimId);
 		UserClaim userClaim = new UserClaim();
-		if(claim.getStatus()=="approved") {
+		System.out.println(claim.getStatus());
+		boolean b;
+		if(claim.getStatus().equals("Approved")) {
+			b=true;
+		}
+		else {
+			b=false;
+		}
+		if(b) {
 			userClaim.setClaimed(true);
+			System.out.println("true");
 			userClaim.setClaimAmount(claim.getAdminAmount());
 			userClaim.setClaimId(claimId);
 			return userClaim;

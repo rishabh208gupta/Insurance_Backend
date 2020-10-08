@@ -46,6 +46,10 @@ public class UserPageController {
 		userVehicle.setVehicleId(vehicle.getVehicleId());
 		userVehicle.setVehicleType(vehicle.getVehicleType());
 		userVehicle.setChasisNo(vehicle.getChasisNo());
+		userVehicle.setManufacturer(vehicle.getManufacturer());
+		userVehicle.setPurchaseDate(vehicle.getPurchaseDate());
+		userVehicle.setRegistrationNo(vehicle.getRegistrationNo());
+		
 		return userVehicle;
 	}
 	
